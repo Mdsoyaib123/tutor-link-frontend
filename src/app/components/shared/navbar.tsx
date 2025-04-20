@@ -16,9 +16,9 @@ const NavBar = () => {
   
     return (
       <nav className="bg-white shadow-md fixed w-full z-50">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-3xl font-bold text-blue-600">
             TutorLink 🎓
           </Link>
   
@@ -28,17 +28,15 @@ const NavBar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-700 hover:text-blue-600 font-medium transition"
+                className="text-gray-700 hover:text-blue-600 font-bold text-lg transition"
               >
                 {link.label}
               </Link>
             ))}
             <div className="flex gap-2">
-              <Link href="/login" className="px-4 py-1.5 border rounded-xl text-sm hover:bg-blue-50">
+             
+              <Link href={"/login"} className="bg-blue-600 text-white px-4 py-1.5 rounded-xl text-sm">
                 Login
-              </Link>
-              <Link href="/register" className="bg-blue-600 text-white px-4 py-1.5 rounded-xl text-sm">
-                Register
               </Link>
             </div>
           </div>
@@ -66,11 +64,9 @@ const NavBar = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link href="/login" className="text-sm border rounded px-3 py-1" onClick={() => setIsOpen(false)}>
+            
+              <Link href="/login" className="text-sm bg-blue-600 text-white rounded px-3 py-1 text-center" onClick={() => setIsOpen(false)}>
                 Login
-              </Link>
-              <Link href="/register" className="text-sm bg-blue-600 text-white rounded px-3 py-1 text-center" onClick={() => setIsOpen(false)}>
-                Register
               </Link>
             </div>
           </div>
