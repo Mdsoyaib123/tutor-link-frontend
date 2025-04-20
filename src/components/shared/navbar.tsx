@@ -9,7 +9,7 @@ const NavBar = () => {
 
     const navLinks = [
       { label: 'Home', href: '/' },
-      { label: 'Browse Tutors', href: '/browse-tutors' },
+      { label: 'Browse Tutors', href: '/browseTutor' },
       { label: 'About Us', href: '/about' },
       { label: 'FAQ', href: '/faq' },
     ];
