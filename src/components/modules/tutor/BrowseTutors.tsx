@@ -1,3 +1,5 @@
+"use client"
+import TutorSection from "@/components/homePage/TutorSection";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
@@ -15,6 +17,8 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
   const [rating, setRating] = useState("");
   const [priceSort, setPriceSort] = useState("");
   const [address, setAddress] = useState("");
+
+  console.log("tutors", tutors);
 
   useEffect(() => {
     const initialSearchTerm = decodeURIComponent(
@@ -41,45 +45,47 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
         ? tutor.address?.toLowerCase().includes(address.toLowerCase())
         : true
     )
-    .sort((a, b) => {
+    .sort((x, y) => {
       if (rating === "asc")
-        return (a.averageRating ?? 0) - (b.averageRating ?? 0);
+        return (x.averageRating ?? 0) - (y.averageRating ?? 0);
       if (rating === "dsc")
-        return (b.averageRating ?? 0) - (a.averageRating ?? 0);
+        return (y.averageRating ?? 0) - (x.averageRating ?? 0);
       return 0;
     })
-    .sort((a, b) => {
-      if (priceSort === "lowtohigh") return (a.price ?? 0) - (b.price ?? 0);
-      if (priceSort === "hightolow") return (b.price ?? 0) - (a.price ?? 0);
+    .sort((x, y) => {
+      if (priceSort === "lowtohigh") return (x.price ?? 0) - (y.price ?? 0);
+      if (priceSort === "hightolow") return (y.price ?? 0) - (x.price ?? 0);
       return 0;
     });
+
+    
   // pagination
 
   const [currentPage, setCurrentPage] = useState(1);
-  const tutorsPerPage = 6;
+  const showPerPageTutors = 6;
   const totalTutors = filteredTutors?.length ?? 0;
-  const totalPages = Math.ceil(totalTutors / tutorsPerPage);
+  const totalPages = Math.ceil(totalTutors / showPerPageTutors);
 
   // Paginate the filtered results
   const paginatedTutors = filteredTutors?.slice(
-    (currentPage - 1) * tutorsPerPage,
-    currentPage * tutorsPerPage
+    (currentPage - 1) * showPerPageTutors,
+    currentPage * showPerPageTutors
   );
 
   return (
     <div className="mx-auto max-w-7xl py-10 md:py-20">
       {/* Sheet Trigger for Mobile/Tablet */}
-      <div className="xl:hidden mb-8 text-center text-white">
+      <div className="xl:hidden mb-8 text-center ">
         <Sheet>
           <SheetTrigger asChild className=" flex justify-end">
-            <Button variant="outline" className="border-blue-600 text-white">
-              <GiFunnel />
+            <Button variant="outline" className="border-blue-600 ">
+              {/* <GiFunnel /> */}
               Filter Tutors
             </Button>
           </SheetTrigger>
           <SheetContent
-            side="left"
-            className="w-[300px] sm:w-[400px] text-white py-8  px-6 overflow-y-scroll  "
+            side="top"
+            className="w-[300px] sm:w-[400px]  py-8  px-6 overflow-y-scroll  "
           >
             <SheetTitle className="text-lg font-semibold mb-4"></SheetTitle>
             <div className=" flex justify-between items-center">
@@ -102,7 +108,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
               {/* Search by name */}
               <Collapsible defaultOpen className=" my-4">
                 <CollapsibleTrigger asChild>
-                  <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                  <button className="group flex items-center justify-between w-full text-left font-medium ">
                     <span>Search By Name</span>
                     <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                       <ChevronDown className="h-4 w-4" />
@@ -113,7 +119,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                   <Input
                     type="text"
                     placeholder="Search by tutor name"
-                    className="text-white placeholder-white"
+                    className=" placeholder-white"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -122,7 +128,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
               {/* search by location */}
               <Collapsible defaultOpen>
                 <CollapsibleTrigger asChild>
-                  <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                  <button className="group flex items-center justify-between w-full text-left font-medium ">
                     <span>Location</span>
                     <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                       <ChevronDown className="h-4 w-4" />
@@ -141,7 +147,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
               </Collapsible>
               <Collapsible defaultOpen className=" my-4">
                 <CollapsibleTrigger asChild>
-                  <button className="group flex text-base items-center justify-between w-full text-left font-medium text-white">
+                  <button className="group flex text-base items-center justify-between w-full text-left font-medium ">
                     <span>Sort By Subject</span>
                     <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                       <ChevronDown className="h-5 w-5" />
@@ -150,7 +156,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-4">
                   <Select onValueChange={setSubject} value={subject}>
-                    <SelectTrigger className="hover:shadow-lg w-full text-white placeholder-white">
+                    <SelectTrigger className="hover:shadow-lg w-full  placeholder-white">
                       <SelectValue placeholder="Select Subject" />
                     </SelectTrigger>
                     <SelectContent className="">
@@ -177,7 +183,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
               </Collapsible>
               <Collapsible defaultOpen>
                 <CollapsibleTrigger asChild>
-                  <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                  <button className="group flex items-center justify-between w-full text-left font-medium ">
                     <span>Rating</span>
                     <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                       <ChevronDown className="h-4 w-4" />
@@ -198,7 +204,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
               </Collapsible>
               <Collapsible defaultOpen className=" my-4">
                 <CollapsibleTrigger asChild>
-                  <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                  <button className="group flex items-center justify-between w-full text-left font-medium ">
                     <span>Sort By</span>
                     <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                       <ChevronDown className="h-4 w-4" />
@@ -224,7 +230,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
       </div>
 
       {/* Desktop layout */}
-      <div className="flex flex-col lg:flex-row gap-8 text-white">
+      <div className="flex flex-col lg:flex-row gap-8 ">
         {/* Sidebar Filter for Large Devices */}
         <div className="hidden xl:block w-full max-w-xs py-8 bg-blue-800/10 hover:bg-blue-800/20 border-r-2 border-blue-400 px-6  rounded-xl shadow-md h-fit">
           <div className=" flex justify-between items-center">
@@ -243,11 +249,13 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
             </button>
           </div>
 
+
+          {/* lg:sidebar  */}
           <div className="flex flex-col gap-6 w-full">
             {/* Search by name */}
             <Collapsible defaultOpen className=" my-4">
               <CollapsibleTrigger asChild>
-                <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                <button className="group flex items-center justify-between w-full text-left font-medium ">
                   <span>Search By Name</span>
                   <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                     <ChevronDown className="h-4 w-4" />
@@ -258,7 +266,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                 <Input
                   type="text"
                   placeholder="Search by tutor name"
-                  className="text-white placeholder-white"
+                  className=" placeholder-white"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -267,7 +275,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
             {/* search by location */}
             <Collapsible defaultOpen>
               <CollapsibleTrigger asChild>
-                <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                <button className="group flex items-center justify-between w-full text-left font-medium ">
                   <span>Location</span>
                   <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                     <ChevronDown className="h-4 w-4" />
@@ -286,7 +294,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
             </Collapsible>
             <Collapsible defaultOpen className=" my-4">
               <CollapsibleTrigger asChild>
-                <button className="group flex text-base items-center justify-between w-full text-left font-medium text-white">
+                <button className="group flex text-base items-center justify-between w-full text-left font-medium ">
                   <span>Sort By Subject</span>
                   <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                     <ChevronDown className="h-5 w-5" />
@@ -295,7 +303,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-4">
                 <Select onValueChange={setSubject} value={subject}>
-                  <SelectTrigger className="hover:shadow-lg w-full text-white placeholder-white">
+                  <SelectTrigger className="hover:shadow-lg w-full  placeholder-white">
                     <SelectValue placeholder="Select Subject" />
                   </SelectTrigger>
                   <SelectContent className="">
@@ -322,7 +330,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
             </Collapsible>
             <Collapsible defaultOpen>
               <CollapsibleTrigger asChild>
-                <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                <button className="group flex items-center justify-between w-full text-left font-medium ">
                   <span>Rating</span>
                   <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                     <ChevronDown className="h-4 w-4" />
@@ -343,7 +351,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
             </Collapsible>
             <Collapsible defaultOpen className=" my-4">
               <CollapsibleTrigger asChild>
-                <button className="group flex items-center justify-between w-full text-left font-medium text-white">
+                <button className="group flex items-center justify-between w-full text-left font-medium ">
                   <span>Sort By</span>
                   <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
                     <ChevronDown className="h-4 w-4" />
@@ -380,6 +388,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
           </div>
         </div>
       </div>
+      
       <div className="flex justify-center items-center mt-6 gap-2">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -395,8 +404,8 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
             onClick={() => setCurrentPage(i + 1)}
             className={`px-3 py-1 rounded ${
               currentPage === i + 1
-                ? "bg-blue-600 text-white"
-                : "bg-gray-800 text-white"
+                ? "bg-blue-600"
+                : "bg-gray-800  "
             }`}
           >
             {i + 1}
