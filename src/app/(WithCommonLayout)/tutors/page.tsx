@@ -2,7 +2,7 @@ import React from "react";
 
 const TutorsPage = () => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mt-32">
       <h2 className="text-2xl md:text-4xl font-bold text-center">
         Find an online tutor to help you study
       </h2>

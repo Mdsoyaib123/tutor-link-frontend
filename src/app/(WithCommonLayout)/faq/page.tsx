@@ -2,7 +2,7 @@ import FAQ from '@/components/faq/Faq'
 
 const FAQPage = () => {
     return (
-        <div>
+        <div className = 'mt-32'>
             <FAQ/>
         </div>
     );
