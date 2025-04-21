@@ -1,78 +1,93 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Button } from '../ui/button';
 
 const NavBar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
-    const navLinks = [
-      { label: 'Home', href: '/' },
-      { label: 'Browse Tutors', href: '/browseTutor' },
-      { label: 'About Us', href: '/about' },
-      { label: 'FAQ', href: '/faq' },
-    ];
-  
-    return (
-      <nav className="bg-white shadow-md fixed w-full z-50">
-        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-          {/* Logo */}
-          <Link href="/" className="text-3xl font-bold text-blue-600">
-            TutorLink 🎓
+  const navLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'Browse Tutors', href: '/tutors' },
+    { label: 'About Us', href: '/about' },
+    { label: 'FAQ', href: '/faq' },
+  ];
+
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 20);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const linkClasses = (href: string) =>
+    `text-lg font-bold transition ${
+      pathname === href
+        ? 'text-blue-600 underline underline-offset-4'
+        : 'text-gray-700 hover:text-blue-600'
+    }`;
+
+  return (
+    <nav
+      className={`fixed top-0 z-50 w-full shadow-sm shadow-blue-600 transition-all duration-300 ${
+        scrolled ? 'bg-blue-100 shadow-md text-black' : 'bg-gray-100 text-black'
+      }`}
+    >
+      <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+        <Link href="/" className="text-3xl font-bold">
+          TutorLink 🎓
+        </Link>
+
+        <div className="hidden md:flex gap-6 items-center">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className={linkClasses(link.href)}>
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/login"
+            
+          >
+            <Button>Login</Button>
           </Link>
-  
-          {/* Desktop Menu */}
-          <div className="hidden md:flex gap-6 items-center">
+        </div>
+
+        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden bg-white px-4 py-4 border-t shadow-md">
+          <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-700 hover:text-blue-600 font-bold text-lg transition"
+                className={linkClasses(link.href)}
+                onClick={() => setIsOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="flex gap-2">
-             
-              <Link href={"/login"} className="bg-blue-600 text-white px-4 py-1.5 rounded-xl text-sm">
-                Login
-              </Link>
-            </div>
+            <Link
+              href="/login"
+              onClick={() => setIsOpen(false)}
+            >
+              <Button>Login</Button>
+            </Link>
           </div>
-  
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-700"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-  
-        {/* Mobile Menu Panel */}
-        {isOpen && (
-          <div className="md:hidden bg-white px-4 py-4 border-t">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-gray-700 font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            
-              <Link href="/login" className="text-sm bg-blue-600 text-white rounded px-3 py-1 text-center" onClick={() => setIsOpen(false)}>
-                Login
-              </Link>
-            </div>
-          </div>
-        )}
-      </nav>
-    )
+      )}
+    </nav>
+  );
 };
 
 export default NavBar;
