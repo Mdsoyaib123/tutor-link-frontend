@@ -1,4 +1,4 @@
-import StudentRegisterForm from './../../components/modules/auth/register/StudentRegisterForm';
+import StudentRegisterForm from '@/components/modules/auth/register/StudentRegisterForm';
 
 const StudentRegister = () => {
   return (
