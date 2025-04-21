@@ -4,9 +4,10 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {Button} from "@/components/ui/button"
+import { IUser } from '@/types/user'
 
 
-const TutorSection=()=> {
+const TutorSection=({tutor}: {tutor:IUser})=> {
     
 const tutors = [
     {
@@ -39,7 +40,7 @@ const tutors = [
         >
           Meet Our Top Tutors 👩‍🏫👨‍🏫
         </motion.h2>
-        <p className="text-gray-600 mt-2">Expert educators ready to guide your journey</p>
+        <p className="text-gray-600 mt-2">{tutor?.address ||"ctg"}</p>
       </div>
 
       <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">

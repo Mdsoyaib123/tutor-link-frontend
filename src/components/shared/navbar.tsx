@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { usePathname } from 'next/navigation';
-import { Button } from '../ui/button';
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Button } from "../ui/button";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,10 +12,10 @@ const NavBar = () => {
   const pathname = usePathname();
 
   const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Browse Tutors', href: '/tutors' },
-    { label: 'About Us', href: '/about' },
-    { label: 'FAQ', href: '/faq' },
+    { label: "Home", href: "/" },
+    { label: "Tutors", href: "/tutors" },
+    { label: "About Us", href: "/about" },
+    { label: "FAQ", href: "/faq" },
   ];
 
   const handleScroll = () => {
@@ -23,46 +23,52 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const linkClasses = (href: string) =>
     `text-lg font-bold transition ${
       pathname === href
-        ? 'text-blue-600 underline underline-offset-4'
-        : 'text-gray-700 hover:text-blue-600'
+        ? "text-blue-600 underline underline-offset-4"
+        : "text-gray-700 hover:text-blue-600"
     }`;
 
   return (
     <nav
       className={`fixed top-0 z-50 w-full shadow-sm shadow-blue-600 transition-all duration-300 ${
-        scrolled ? 'bg-blue-100 shadow-md text-black' : 'bg-gray-100 text-black'
+        scrolled ? "bg-blue-100 shadow-md text-black" : "bg-gray-100 text-black"
       }`}
     >
-      <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-        <Link href="/" className="text-3xl font-bold">
-          TutorLink 🎓
-        </Link>
-
-        <div className="hidden md:flex gap-6 items-center">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className={linkClasses(link.href)}>
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="/login"
-            
-          >
-            <Button>Login</Button>
+      <div className="container mx-auto px-4 py-6 flex justify-between items-center ">
+        <div>
+          <Link href="/" className="text-3xl font-bold">
+            TutorLink 🎓
           </Link>
         </div>
 
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="hidden md:flex gap-6 items-center">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={linkClasses(link.href)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        
+        <div>
+          <Link href="/login">
+            <Button>Login</Button>
+          </Link>
+        </div>
       </div>
+
+      <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
 
       {isOpen && (
         <div className="md:hidden bg-white px-4 py-4 border-t shadow-md">
@@ -77,10 +83,7 @@ const NavBar = () => {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/login"
-              onClick={() => setIsOpen(false)}
-            >
+            <Link href="/login" onClick={() => setIsOpen(false)}>
               <Button>Login</Button>
             </Link>
           </div>
