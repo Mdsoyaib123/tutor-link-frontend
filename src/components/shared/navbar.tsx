@@ -9,13 +9,18 @@ const NavBar = () => {
 
     const navLinks = [
       { label: 'Home', href: '/' },
-      { label: 'Browse Tutors', href: '/browseTutor' },
+      { label: 'Browse Tutors', href: '/tutors' },
       { label: 'About Us', href: '/about' },
       { label: 'FAQ', href: '/faq' },
     ];
   
     return (
-      <nav className="bg-white shadow-md fixed w-full z-50">
+      <nav
+      className="
+        'fixed z-10 w-full transition-all text-white',
+       'bg-blue-100 shadow-sm shadow-blue-200 text-black',
+      "
+    >
         <div className="container mx-auto px-4 py-6 flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="text-3xl font-bold text-blue-600">
