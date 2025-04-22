@@ -9,9 +9,6 @@ export default function Sidebar() {
         TutorLink
       </div>
       <nav className="space-y-4 text-indigo-800 font-medium">
-        <a href="#" className="block hover:text-indigo-500">
-          📊 Dashboard
-        </a>
         <Link
           href={"/studentdashboard/profile"}
           className="block hover:text-indigo-500"
@@ -24,9 +21,12 @@ export default function Sidebar() {
         >
           📚 Manage Tutors
         </Link>
-        <a href="#" className="block hover:text-indigo-500">
+        <Link
+          href={"/studentdashboard/mybookings"}
+          className="block hover:text-indigo-500"
+        >
           📅 My Bookings
-        </a>
+        </Link>
       </nav>
       <div className="mt-12 text-sm text-gray-500">
         <span className="text-gray-800 font-medium">tuder</span>

@@ -1,10 +1,10 @@
-import ProfileCard from "@/components/dashboard/student/Profile";
+import BookingTable from "@/components/dashboard/student/Mybookings";
 import React from "react";
 
 const page = () => {
   return (
     <>
-      <ProfileCard />
+      <BookingTable />
     </>
   );
 };
