@@ -18,9 +18,12 @@ export default function Sidebar() {
         >
           👤 Profile
         </Link>
-        <a href="#" className="block hover:text-indigo-500">
+        <Link
+          href={"/studentdashboard/myrequest"}
+          className="block hover:text-indigo-500"
+        >
           📚 Manage Tutors
-        </a>
+        </Link>
         <a href="#" className="block hover:text-indigo-500">
           📅 My Bookings
         </a>
