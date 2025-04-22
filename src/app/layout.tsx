@@ -3,8 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import ReduxProvider from "@/Redux/provider";
+
 import { ThemeProvider } from "next-themes";
 import DarkModeToggle from "@/components/darkMood/DarkMoodToggle";
+
+
+import Providers from "@/providers/Providers";
 
 
 const geistSans = Geist({
@@ -34,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+
         className={`${geistSans.className} ${geistMono.className} antialiased  transition-colors duration-300 dark:bg-gray-900 `}
       >
         <Toaster position="top-right" />
@@ -44,6 +48,10 @@ export default function RootLayout({
           <DarkModeToggle />
         </ThemeProvider>
         </ReduxProvider>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Toaster position="top-right" />
+        <Providers><ReduxProvider>{children}</ReduxProvider></Providers>
       </body>
     </html>
   );
