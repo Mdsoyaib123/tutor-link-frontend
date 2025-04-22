@@ -40,6 +40,7 @@ const NavBar = () => {
         scrolled ? "bg-blue-100 shadow-md text-black" : "bg-gray-100 text-black"
       }`}
     >
+      <div className="container mx-auto flex justify-between items-center">
       <div className="container mx-auto px-4 py-6 flex justify-between items-center ">
         <div>
           <Link href="/" className="text-3xl font-bold">
@@ -59,7 +60,7 @@ const NavBar = () => {
           ))}
         </div>
         
-        <div>
+        <div className="hidden md:flex">
           <Link href="/login">
             <Button>Login</Button>
           </Link>
@@ -88,7 +89,7 @@ const NavBar = () => {
             </Link>
           </div>
         </div>
-      )}
+      )}</div>
     </nav>
   );
 };

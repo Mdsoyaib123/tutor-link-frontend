@@ -2,11 +2,12 @@
 
 import { MapPin, ScanEye } from "lucide-react";
 import React from "react";
+import img from "../../../../public/tutor.jpg";
 
 import Link from "next/link";
 import { IUser } from "@/types/user";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const TutorsCard = ({ tutor }: { tutor: IUser }) => {
   return (
@@ -15,14 +16,13 @@ const TutorsCard = ({ tutor }: { tutor: IUser }) => {
 
         <div className="w-1/4">
           <Image
-            src={tutor?.profilePicture || "/default-profile.png"}
+            src={tutor?.profilePicture || img}
             alt={tutor?.name || "Tutor"}
-            height={40}
-            width={40}
+            height={400}
+            width={400}
+            className="rounded object-cover border-2 border-gray-300 dark:border-gray-600"
           />
-          {/* <span className="text-sm text-yellow-500">
-            ⭐ {tutor?.averageRating?.toFixed(1)}
-          </span> */}
+      
         </div>
 
         <div className="w-2/4">
