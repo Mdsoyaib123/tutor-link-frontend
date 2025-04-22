@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';  // Importing the eye icons
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import { MoveLeft } from 'lucide-react';
+import Link from 'next/link';
 
 const subjectsList = ['Math', 'Science', 'English', 'History', 'Programming'];
 const gradesList = ['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10'];
@@ -168,6 +170,14 @@ export default function TutorRegisterForm() {
           >
             Register Now
           </button>
+          <p className=" flex items-center justify-center mt-6">
+          <Link
+            href="/"
+            className="flex gap-3 items-center text-base font-semibold text-gray-400 hover:text-[#066ccb] "
+          >
+            <MoveLeft /> Back to Home
+          </Link>
+        </p>
         </form>
       </div>
 
