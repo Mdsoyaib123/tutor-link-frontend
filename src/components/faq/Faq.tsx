@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 
 const faqData = [
@@ -66,33 +65,40 @@ const FAQ = () => {
   );
 
   return (
-    <div className="min-h-screen max-w-4xl mx-auto  py-10 px-4">
+    <div className="min-h-screen max-w-7xl mx-auto py-10 px-4">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Frequently Asked Questions</h2>
+        <h2 className="text-3xl  md:text-4xl font-bold text-center text-blue-600 dark:text-white  mb-8">Frequently Asked Questions</h2>
 
-        <div className="mb-6">
+        {/* Search Box */}
+        <div className="mb-8 flex justify-center">
           <input
             type="text"
             placeholder="Search FAQs"
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full px-4 py-2 border rounded-md text-black focus:outline-none"
+            className="w-3/4 sm:w-1/2 px-6 py-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:border-gray-600 dark:text-white transition-all"
           />
         </div>
 
-        <div className="space-y-4">
+        {/* FAQ Items */}
+        <div className="space-y-6">
           {filteredFAQ.map((faq, index) => (
-            <div key={index} className="border-b pb-4">
+            <div
+              key={index}
+              className="border-b pb-6 dark:border-gray-700 transition-all duration-300"
+            >
               <div
                 onClick={() => toggleAnswer(index)}
-                className="cursor-pointer flex justify-between items-center text-lg font-semibold text-gray-800"
+                className="cursor-pointer flex justify-between items-center text-lg font-semibold  dark:text-gray-100 text-blue-600 transition-all"
               >
                 <span>{faq.question}</span>
-                <span>{activeIndex === index ? '-' : '+'}</span>
+                <span className="text-xl">{activeIndex === index ? '-' : '+'}</span>
               </div>
 
               {activeIndex === index && (
-                <div className="mt-2 text-gray-600">{faq.answer}</div>
+                <div className="mt-4 text-gray-700 dark:text-gray-300">
+                  {faq.answer}
+                </div>
               )}
             </div>
           ))}

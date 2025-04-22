@@ -7,7 +7,7 @@ const TutorsPage = async () => {
   console.log(tutorsData ,"tutorsData");
   const tutors = tutorsData?.data || [];
   return (
-    <div className="container mx-auto mt-32">
+    <div className="max-w-7xl mx-auto mt-32">
       <h2 className="text-2xl md:text-4xl font-bold text-center">
         Find an online tutor to help you study
       </h2>
