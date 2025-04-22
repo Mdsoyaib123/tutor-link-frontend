@@ -6,10 +6,10 @@ import { Search } from 'lucide-react';
 const Banner = () => {
     return (
         <section className="bg-blue-50 py-50 px-4">
-       <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+       <div className="container lg:px-14 mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-10">
         {/* Text Section */}
         <div className="md:w-1/2 space-y-6 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-700 leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-700 leading-tight">
             Find & Connect with the Best Tutors
           </h1>
           <p className="text-gray-600 text-lg">
@@ -34,12 +34,7 @@ const Banner = () => {
             >
               Sign Up as Student
             </Link>
-            <Link
-              href={'/register/tutor'}
-              className="border border-blue-600 text-blue-600 px-6 py-2 rounded-xl hover:bg-blue-50 transition"
-            >
-              Register as Tutor
-            </Link>
+           
           </div>
         </div>
 

@@ -34,7 +34,7 @@ export default function MyRequestsTable() {
   return (
     <div className="bg-white shadow rounded-lg overflow-x-auto">
       <table className="min-w-full text-sm">
-        <thead className="bg-indigo-100 text-indigo-800">
+        <thead className="bg-blue-100 text-blue-800">
           <tr className="text-left">
             <th className="p-3">#</th>
             <th className="p-3">Profile</th>
@@ -80,7 +80,7 @@ export default function MyRequestsTable() {
                 <button
                   className={`px-4 py-1 text-white rounded text-sm ${
                     d.accepted === "Yes"
-                      ? "bg-indigo-500 hover:bg-indigo-600"
+                      ? "bg-blue-500 hover:bg-blue-600"
                       : "bg-gray-300 cursor-not-allowed"
                   }`}
                   disabled={d.accepted !== "Yes"}

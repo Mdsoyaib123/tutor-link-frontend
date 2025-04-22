@@ -2,7 +2,7 @@ import RegisterForm from '@/components/modules/auth/register/Register';
 
 const StudentRegister = () => {
   return (
-    <div className='flex justify-center items-center my-5 bg-gray-50'>
+    <div className='min-h-screen flex justify-center items-center bg-gray-50'>
       <RegisterForm></RegisterForm>
     </div>
   );
