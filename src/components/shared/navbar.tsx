@@ -40,7 +40,7 @@ const NavBar = () => {
         scrolled ? "bg-blue-100 shadow-md text-black" : "bg-gray-100 text-black"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-8 py-6 flex justify-between items-center ">
+      <div className="mx-auto px-4 md:px-8 py-6 flex justify-between items-center ">
         <div className = "flex">
         <button className="md:hidden text-sm px-2" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? <X size={24} /> : <Menu size={24} />}

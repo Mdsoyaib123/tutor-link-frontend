@@ -34,12 +34,7 @@ const Banner = () => {
             >
               Sign Up as Student
             </Link>
-            <Link
-              href={'/register/tutor'}
-              className="border border-blue-600 text-blue-600 px-6 py-2 rounded-xl hover:bg-blue-50 transition"
-            >
-              Register as Tutor
-            </Link>
+           
           </div>
         </div>
 

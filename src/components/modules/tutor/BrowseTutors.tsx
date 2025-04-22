@@ -1,5 +1,4 @@
 "use client"
-import TutorSection from "@/components/homePage/TutorSection";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
@@ -9,6 +8,7 @@ import { IUser } from "@/types/user";
 import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import TutorsCard from "./TutorsCard";
 
 const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
   const searchParams = useSearchParams();
@@ -62,7 +62,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
   // pagination
 
   const [currentPage, setCurrentPage] = useState(1);
-  const showPerPageTutors = 6;
+  const showPerPageTutors = 5;
   const totalTutors = filteredTutors?.length ?? 0;
   const totalPages = Math.ceil(totalTutors / showPerPageTutors);
 
@@ -375,10 +375,10 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
 
         {/* Tutor Cards */}
         <div className="flex-1">
-          <div className=" flex flex-wrap gap-12 justify-center">
+          <div className="">
             {paginatedTutors?.length > 0 ? (
               paginatedTutors.map((tutor) => (
-                <TutorSection key={tutor.email} tutor={tutor} />
+                <TutorsCard key={tutor.email} tutor={tutor} />
               ))
             ) : (
               <p className="text-center text-gray-500 w-full">
