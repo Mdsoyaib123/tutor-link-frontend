@@ -2,17 +2,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Banner = () => {
-    return (
-        <section className="bg-blue-50 py-50 px-4">
-       <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+  return (
+    <section className="bg-blue-50 h-screen dark:bg-gray-900 transition-colors duration-300 px-4">
+      <div className="max-w-7xl mx-auto h-full flex flex-col-reverse md:flex-row items-center justify-center gap-10">
+        
         {/* Text Section */}
         <div className="md:w-1/2 space-y-6 text-center md:text-left">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-700 leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-700 dark:text-white leading-tight">
             Find & Connect with the Best Tutors
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-700 dark:text-gray-300 text-lg">
             TutorLink helps students succeed by matching them with top-rated, verified tutors across all subjects.
           </p>
 
@@ -21,37 +23,33 @@ const Banner = () => {
             <input
               type="text"
               placeholder="Search by subject, grade, or tutor..."
-              className="w-full py-3 pl-12 pr-4 rounded-xl border text-black border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none"
+              className="w-full py-3 pl-12 pr-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500 outline-none"
             />
-            <Search className="absolute left-4 top-3.5 text-gray-400" size={20} />
+            <Search className="absolute left-4 top-3.5 text-gray-500 dark:text-gray-400" size={20} />
           </div>
 
           {/* CTA Buttons */}
           <div className="flex justify-center md:justify-start gap-4 pt-2">
-            <Link
-              href={"/register"}
-              className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition"
-            >
-              Sign Up as Student
+            <Link href="/register">
+              <Button>Sign Up as Student</Button>
             </Link>
-           
           </div>
         </div>
 
         {/* Image Section */}
         <div className="md:w-1/2 flex justify-center">
           <Image
-            src="/banner-illustration.svg" // Replace with your asset
+            src="/banner-illustration.svg"
             alt="Online tutoring illustration"
             width={500}
             height={400}
-            className="object-contain"
+            className="object-contain dark:brightness-90"
             priority
           />
         </div>
       </div>
     </section>
-    );
+  );
 };
 
 export default Banner;
