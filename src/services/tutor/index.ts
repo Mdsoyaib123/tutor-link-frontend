@@ -6,14 +6,35 @@ export const getAllTutors = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/users/tutors`,
       {
-        cache: "no-store",
+        next: {
+          tags: ["TUTORS"],
+        },
       }
     );
-    console.log(res, "res");
+    // console.log(res, "res");
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
-    return res.json();
+    return await res.json();
+  } catch (error: any) {
+    return Error("error to fetch data", error?.message);
+  }
+};
+
+export const getSingleTutor = async (tutorId:string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/users/tutors/${tutorId}`,
+      {
+        next: {
+          tags: ["TUTORS"],
+        },
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return await res.json();
   } catch (error: any) {
     return Error("error to fetch data", error?.message);
   }
