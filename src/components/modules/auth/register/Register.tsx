@@ -1,23 +1,16 @@
 "use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { GiTeacher } from "react-icons/gi";
 import { PiStudentBold } from "react-icons/pi";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Calendar } from "@/components/ui/calendar"
-
-import Link from "next/link";
+import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
-import { CalendarIcon, MoveLeft } from "lucide-react";
-import { DateRange } from "react-day-picker";
+import Link from "next/link";
+
+import {  MoveLeft } from "lucide-react";
+
 import {
   Form,
   FormControl,
@@ -27,7 +20,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -37,14 +29,21 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import DatePicker from "react-datepicker";
+import { registerUser } from "@/services/auth";
 
 const RegisterForm = () => {
-  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+    null,
+    null,
+  ]);
+  const [startDate, endDate] = dateRange;
+  const formatStartDate = startDate ? format(startDate, "dd-MM-yyyy") : "";
+  const formatEndDate = endDate ? format(endDate, "dd-MM-yyyy") : "";
+
   const [signUp, setSignUp] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const form = useForm({
-    resolver: zodResolver(),
-  });
+  const form = useForm();
 
   const {
     formState: { isSubmitting },
@@ -56,8 +55,46 @@ const RegisterForm = () => {
 
   const router = useRouter();
 
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    if (data.role === 'Tutor') {
+      const formattedData = {
+        ...data,
+        availability: {
+          from: formatStartDate, // Ensure from is a Date object
+          to: formatEndDate ? formatEndDate : undefined, // Convert to if present
+        },
+ 
+      };
+      try {
+        const res = await registerUser(formattedData);
+        if (res?.success) {
+          toast.success(res?.message);
+          router.push('/login');
+        } else {
+          toast.error(res?.message);
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        console.error(err);
+      }
+    } else {
+      try {
+        const res = await registerUser(data);
+        if (res?.success) {
+          toast.success(res?.message);
+          router.push('/login');
+        } else {
+          toast.error(res?.message);
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        console.error(err);
+      }
+    }
+  };
+
   return (
-    <div className="md:w-[530px] w-[350px] shadow-[0px_0px_20px_theme(colors.blue.600)]  overflow-hidden rounded-lg border border-[#066ccb] p-4 bg-gray-100 dark:border-zinc-700 dark:bg-zinc-900">
+    <div className=" md:w-[530px] w-[350px] shadow-[0px_0px_20px_theme(colors.blue.600)]  overflow-hidden rounded-lg border border-[#066ccb] p-4 bg-gray-100 dark:border-zinc-700 dark:bg-zinc-900">
       <div className="flex select-none gap-2 border-b p-2.5 *:flex-1 *:rounded-md *:border *:p-2 *:text-center  *:shadow-inner *:outline-none dark:border-[#066ccb]  *:dark:border-[#066ccb]">
         <button
           onClick={() => setSignUp(false)}
@@ -87,7 +124,7 @@ const RegisterForm = () => {
         <div>
           <Form {...form}>
             <form
-              // onSubmit={form.handleSubmit(onSubmit)}
+              onSubmit={form.handleSubmit(onSubmit)}
               className={`${
                 signUp ? "h-full duration-300" : "invisible h-0 opacity-0"
               } space-y-3 sm:space-y-3`}
@@ -222,52 +259,23 @@ const RegisterForm = () => {
                 />
               </div>
 
-              <div className=" flex flex-wrap justify-between">
-                <FormField
-                  // control={form.control}
-                  name="availability"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-base">Availability</FormLabel>
-                      <FormControl className="">
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start bg-gray-200 text-left font-normal border-[#066ccb]"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {dateRange?.from ? (
-                                dateRange.to ? (
-                                  <>
-                                    {format(dateRange.from, 'LLL dd, y')} -{' '}
-                                    {format(dateRange.to, 'LLL dd, y')}
-                                  </>
-                                ) : (
-                                  format(dateRange.from, 'LLL dd, y')
-                                )
-                              ) : (
-                                <span>Pick a date range</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="range"
-                              selected={dateRange}
-                              onSelect={(range) => {
-                                setDateRange(range);
-                                field.onChange(range); // Update form value
-                              }}
-                              numberOfMonths={2}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className=" flex  justify-between">
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-base font-semibold">
+                    Availability
+                  </FormLabel>
+                  <DatePicker
+                    selectsRange
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={(update) => {
+                      setDateRange(update);
+                    }}
+                    dateFormat="dd-MM-yyyy" // 👈 this sets the display format
+                    placeholderText="Pick a date range"
+                    className="w-full px-3 py-2 border border-blue-500 rounded bg-gray-100"
+                  />
+                </FormItem>
 
                 <FormField
                   // control={form.control}
@@ -287,7 +295,7 @@ const RegisterForm = () => {
                           onChange={(e) =>
                             field.onChange(Number(e.target.value) || 0)
                           } // 🔹 Convert to number
-                          value={field.value ?? ''} // Ensures empty state is handled correctly
+                          value={field.value ?? ""} // Ensures empty state is handled correctly
                         />
                       </FormControl>
                       <FormMessage />
@@ -296,9 +304,7 @@ const RegisterForm = () => {
                 />
               </div>
 
-
-
-               <div className="flex flex-wrap justify-between ">
+              <div className="flex flex-wrap justify-between ">
                 <FormField
                   // control={form.control}
                   name="password"
@@ -311,7 +317,7 @@ const RegisterForm = () => {
                           className=" border-[#066ccb]"
                           type="password"
                           {...field}
-                          value={field.value || ''}
+                          value={field.value || ""}
                         />
                       </FormControl>
                       <FormMessage />
@@ -332,7 +338,7 @@ const RegisterForm = () => {
                           className=" border-[#066ccb] "
                           type="password"
                           {...field}
-                          value={field.value || ''}
+                          value={field.value || ""}
                         />
                       </FormControl>
 
@@ -357,15 +363,16 @@ const RegisterForm = () => {
           </Form>
         </div>
 
-        {/* <div>
+        {/* for student  */}
+        <div>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className={`${
-                signUp ? ' invisible h-0 opacity-0' : 'h-full duration-300'
+                signUp ? " invisible h-0 opacity-0" : "h-full duration-300"
               } space-y-3 sm:space-y-3`}
             >
-              <div className=" flex flex-wrap justify-between ">
+              <div className=" flex flex-col space-y-2 justify-between ">
                 <FormField
                   control={form.control}
                   name="name"
@@ -378,7 +385,7 @@ const RegisterForm = () => {
                           placeholder="name"
                           required
                           {...field}
-                          value={field.value || ''}
+                          value={field.value || ""}
                         />
                       </FormControl>
                       <FormMessage />
@@ -397,48 +404,7 @@ const RegisterForm = () => {
                           placeholder="email"
                           required
                           {...field}
-                          value={field.value || ''}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className=" flex flex-wrap justify-between  ">
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className=" text-base">Address</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="p-5 border-[#066ccb]"
-                          placeholder="Address"
-                          required
-                          {...field}
-                          value={field.value || ''}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className=" text-base">Phone</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="p-5 border-[#066ccb]"
-                          placeholder="01XXXXXXXXX"
-                          required
-                          {...field}
-                          value={field.value || ''}
+                          value={field.value || ""}
                         />
                       </FormControl>
                       <FormMessage />
@@ -447,15 +413,6 @@ const RegisterForm = () => {
                 />
               </div>
 
-              <div className="">
-                <Label className=" text-base ">User Image</Label>
-                <Input
-                  className=" border-[#066ccb]"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-              </div>
               <div className=" ">
                 <FormField
                   control={form.control}
@@ -495,7 +452,7 @@ const RegisterForm = () => {
                           className=" border-[#066ccb]"
                           type="password"
                           {...field}
-                          value={field.value || ''}
+                          value={field.value || ""}
                         />
                       </FormControl>
                       <FormMessage />
@@ -516,7 +473,7 @@ const RegisterForm = () => {
                           className=" border-[#066ccb] "
                           type="password"
                           {...field}
-                          value={field.value || ''}
+                          value={field.value || ""}
                         />
                       </FormControl>
 
@@ -535,12 +492,12 @@ const RegisterForm = () => {
                 className=" w-full bg-[#066ccb] hover:bg-blue-600/40 hover:text-[#066ccb] text-lg hover:border-[#066ccb]"
                 disabled={uploading}
               >
-                {isSubmitting ? 'Registering....' : 'Register'}
+                {isSubmitting ? "Registering...." : "Register"}
               </Button>
             </form>
           </Form>
           <p className=" text-base mt-6">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link
               href="/login"
               className=" text-lg font-semibold text-[#066ccb] hover:underline "
@@ -548,7 +505,7 @@ const RegisterForm = () => {
               Login
             </Link>
           </p>
-        </div> */}
+        </div>
 
         <p className=" flex items-center justify-center mt-6">
           <Link
