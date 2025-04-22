@@ -34,7 +34,7 @@ const BannerSection = () => {
         </div>
   
         {/* Small Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-7xl mx-auto">
           {[
             { icon: '🎓', title: 'Expert Tutors', desc: 'Learn from certified professionals across subjects.' },
             { icon: '⏳', title: 'Flexible Times', desc: 'Book sessions that fit your schedule.' },

@@ -23,7 +23,7 @@ const teamMembers = [
 const TeamSection = () => {
   return (
     <section className="py-16 px-4 bg-white text-center" id="team">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-blue-800 mb-4">Meet the Team</h2>
         <p className="text-gray-700 text-lg mb-12">
           TutorLink is built by a team of educators, developers, and lifelong learners who are passionate about transforming the way people connect for education. Our team combines technical excellence with a deep understanding of the challenges students and tutors face in the modern learning environment.

@@ -73,7 +73,7 @@ const ReviewSection=()=> {
     
       return (
         <section className=" py-16 px-4">
-          <div className="max-w-6xl mx-auto text-center">
+          <div className="max-w-7xl mx-auto text-center">
             <h2 className="text-4xl font-bold text-blue-800 mb-10">What People Are Saying</h2>
     
             <div ref={sliderRef} className="keen-slider py-4">

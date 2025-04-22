@@ -30,7 +30,7 @@ const tutors = [
     },
   ]
   return (
-    <section className="py-20 my-20">
+    <section className="py-20 my-20 max-w-7xl mx-auto ">
       <div className="text-center mb-12">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
