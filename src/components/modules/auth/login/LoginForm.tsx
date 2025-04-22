@@ -75,7 +75,8 @@ const LoginForm = () => {
           {/* Password Input */}
           <div className="relative">
             <label className="text-md font-semibold">Password</label>
-            <input
+          
+           <input
               type={showPassword ? "text" : "password"} // Toggle input type based on state
               name="password"
               placeholder="Password"
@@ -86,7 +87,7 @@ const LoginForm = () => {
             />
             <div
               onClick={togglePasswordVisibility}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              className="absolute right-4 top-3/5 transform -translate-y-1/2 cursor-pointer"
             >
               {showPassword ? (
                 <AiFillEyeInvisible size={24} color="#6B7280" />
@@ -94,6 +95,7 @@ const LoginForm = () => {
                 <AiFillEye size={24} color="#6B7280" />
               )}
             </div>
+           
           </div>
 
           {/* Login Button */}
