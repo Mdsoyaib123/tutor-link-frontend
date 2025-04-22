@@ -1,5 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+import { verifyToken } from "@/lib/verifyToken";
+import { setUser, TUser } from "@/Redux/Features/Auth/authSlice";
+import { useAppDispatch } from "@/Redux/hook";
 import { loginUser } from "@/services/auth";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
@@ -11,7 +14,7 @@ import { FaGithub, FaGoogle } from "react-icons/fa"; // Importing social media i
 
 const LoginForm = () => {
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,9 +34,12 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const res = await loginUser(formData);
+      console.log(res.data.accessToken);
+      
       if (res?.success) {
+        const user = verifyToken(res?.data?.accessToken) as TUser;
+        dispatch(setUser({ user: user, token: res?.data?.accessToken }));
         toast.success(res?.message);
-
         router.push("/");
       } else {
         toast.error(res?.message);

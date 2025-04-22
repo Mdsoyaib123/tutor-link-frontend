@@ -18,10 +18,6 @@ export const registerUser = async (userData: FieldValues) => {
     );
     const result = await res.json();
 
-    if (result.success) {
-      (await cookies()).set("accessToken", result.data.accessToken);
-    }
-
     return result;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

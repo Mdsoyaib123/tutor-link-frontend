@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from 'react-hot-toast'
-
+import { Toaster } from "react-hot-toast";
+import ReduxProvider from "@/Redux/provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,12 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TutorLink",
   description: "Providing a platform for tutors and students to connect",
-  icons :{
-    icon : "/logo.png",
-    shortcut : "/logo.png",
-    apple : "/logo.png",
-    
-  }
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -35,8 +34,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.className} ${geistMono.className} antialiased`}
       >
-          <Toaster position="top-right" />
-        {children}
+        <Toaster position="top-right" />
+        <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
   );

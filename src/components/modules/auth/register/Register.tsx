@@ -38,8 +38,8 @@ const RegisterForm = () => {
     null,
   ]);
   const [startDate, endDate] = dateRange;
-  const formatStartDate = startDate ? format(startDate, "dd-MM-yyyy") : "";
-  const formatEndDate = endDate ? format(endDate, "dd-MM-yyyy") : "";
+  // const formatStartDate = startDate ? format(startDate, "dd-MM-yyyy") : "";
+  // const formatEndDate = endDate ? format(endDate, "dd-MM-yyyy") : "";
 
   const [signUp, setSignUp] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -60,13 +60,15 @@ const RegisterForm = () => {
       const formattedData = {
         ...data,
         availability: {
-          from: formatStartDate, // Ensure from is a Date object
-          to: formatEndDate ? formatEndDate : undefined, // Convert to if present
+          from: startDate, // Ensure from is a Date object
+          to: endDate ? endDate : undefined, // Convert to if present
         },
  
       };
       try {
+        console.log(formattedData)
         const res = await registerUser(formattedData);
+        console.log(res)
         if (res?.success) {
           toast.success(res?.message);
           router.push('/login');
@@ -80,6 +82,7 @@ const RegisterForm = () => {
     } else {
       try {
         const res = await registerUser(data);
+        console.log(res)
         if (res?.success) {
           toast.success(res?.message);
           router.push('/login');
@@ -94,11 +97,11 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className=" md:w-[530px] w-[350px] shadow-[0px_0px_20px_theme(colors.blue.600)]  overflow-hidden rounded-lg border border-[#066ccb] p-4 bg-gray-100 dark:border-zinc-700 dark:bg-zinc-900">
+    <div className=" md:w-[550px] w-[350px] shadow-[0px_0px_20px_theme(colors.blue.600)]  overflow-hidden rounded-lg border border-[#066ccb] p-4 bg-gray-100 dark:border-zinc-700 dark:bg-zinc-900">
       <div className="flex select-none gap-2 border-b p-2.5 *:flex-1 *:rounded-md *:border *:p-2 *:text-center  *:shadow-inner *:outline-none dark:border-[#066ccb]  *:dark:border-[#066ccb]">
         <button
           onClick={() => setSignUp(false)}
-          className={`${
+          className={`text-sm lg:text-md ${
             !signUp
               ? "bg-[#066ccb] text-white flex justify-center items-center gap-2"
               : "bg-white text-[#066ccb] border-[#066ccb] flex justify-center items-center gap-2"
@@ -110,7 +113,7 @@ const RegisterForm = () => {
         </button>
         <button
           onClick={() => setSignUp(true)}
-          className={`${
+          className={`text-sm lg:text-md ${
             signUp
               ? "bg-[#066ccb] text-white flex justify-center items-center gap-2"
               : "bg-white text-[#066ccb] border-[#066ccb] flex justify-center items-center gap-2"
@@ -129,9 +132,9 @@ const RegisterForm = () => {
                 signUp ? "h-full duration-300" : "invisible h-0 opacity-0"
               } space-y-3 sm:space-y-3`}
             >
-              <div className=" flex flex-wrap justify-between ">
+              <div className=" md:flex flex-wrap justify-between ">
                 <FormField
-                  // control={form.control}
+                  control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
@@ -150,7 +153,7 @@ const RegisterForm = () => {
                   )}
                 />
                 <FormField
-                  // control={form.control}
+                  control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
@@ -170,7 +173,7 @@ const RegisterForm = () => {
                 />
               </div>
 
-              <div className="flex flex-wrap justify-between">
+              <div className="md:flex flex-wrap justify-between">
                 <FormField
                   // control={form.control}
                   name="subjects"
@@ -259,8 +262,8 @@ const RegisterForm = () => {
                 />
               </div>
 
-              <div className=" flex  justify-between">
-                <FormItem className="space-y-2">
+              <div className=" ">
+                <FormItem className="">
                   <FormLabel className="text-base font-semibold">
                     Availability
                   </FormLabel>
@@ -304,7 +307,7 @@ const RegisterForm = () => {
                 />
               </div>
 
-              <div className="flex flex-wrap justify-between ">
+              <div className="md:flex flex-wrap justify-between ">
                 <FormField
                   // control={form.control}
                   name="password"
