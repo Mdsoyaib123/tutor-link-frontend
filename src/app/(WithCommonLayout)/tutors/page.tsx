@@ -4,6 +4,7 @@ import React from "react";
 
 const TutorsPage = async () => {
   const tutorsData = await getAllTutors();
+  console.log(tutorsData ,"tutorsData");
   const tutors = tutorsData?.data || [];
   return (
     <div className="container mx-auto mt-32">
