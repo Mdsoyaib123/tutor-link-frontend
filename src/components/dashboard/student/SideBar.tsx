@@ -21,16 +21,16 @@ export default function SidebarWrapper() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out 
+        className={`dark:bg-gray-800 dark:text-white text-blue-600 fixed top-0 left-0 z-40 h-full  bg-white shadow-lg transform transition-transform duration-300 ease-in-out 
           ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } md:relative md:translate-x-0 md:h-screen`}
       >
         <div className="p-4">
-          <div className="text-3xl font-extrabold mb-10 text-indigo-600">
+          <div className="text-3xl font-extrabold mb-10 ">
             TutorLink
           </div>
-          <nav className="space-y-4 text-indigo-800 font-medium">
+          <nav className="space-y-4  font-medium">
             <Link
               href="/studentdashboard/profile"
               className="block hover:text-indigo-500"

@@ -38,12 +38,12 @@ const bookings = [
 
 export default function BookingTable() {
   return (
-    <div className="p-4">
-      <div className="bg-white shadow-md rounded-lg overflow-x-auto p-4">
-        <h2 className="text-xl font-semibold mb-4">Booking Details</h2>
+    <div className="">
+      <div className="bg-white dark:bg-gray-600 shadow-md rounded-lg overflow-x-auto p-4">
+        <h2 className="text-xl font-semibold mb-4 ">Booking Details</h2>
         <table className="w-full table-auto text-sm text-left">
           <thead className="text-gray-700 border-b">
-            <tr>
+            <tr className="bg-blue-100 text-blue-800">
               <th className="px-4 py-2">#</th>
               <th className="px-4 py-2">User Email</th>
               <th className="px-4 py-2">Tutor Id</th>
