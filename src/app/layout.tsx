@@ -39,6 +39,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.className} ${geistMono.className} antialiased  transition-colors duration-300 dark:bg-gray-900 `}
       >
+
       <Toaster position="top-right" />
         <Providers>
         <ReduxProvider>
@@ -48,6 +49,10 @@ export default function RootLayout({
           </ThemeProvider>
         </ReduxProvider>
         </Providers>
+        {/* <Toaster position="top-right" />
+        <Providers>
+          <ReduxProvider>{children}</ReduxProvider>
+        </Providers> */}
       </body>
     </html>
   );
