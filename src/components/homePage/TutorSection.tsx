@@ -1,34 +1,33 @@
-'use client'
+"use client";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import img from "../../../public/tutor.jpg";
+import { IUser } from "@/types/user";
 
-import Image from 'next/image'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import {Button} from "@/components/ui/button"
-import { IUser } from '@/types/user'
+const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
+  // const tutors = [
+  //     {
+  //       name: 'Emily Johnson',
+  //       subject: 'Mathematics',
+  //       image: '/tutors/emily.jpg',
+  //       bio: 'Passionate math tutor with 5+ years of experience helping students excel.',
+  //     },
+  //     {
+  //       name: 'Daniel Kim',
+  //       subject: 'Physics',
+  //       image: '/tutors/daniel.jpg',
+  //       bio: 'Physics enthusiast making complex concepts simple and fun.',
+  //     },
+  //     {
+  //       name: 'Sophia Lee',
+  //       subject: 'English Literature',
+  //       image: '/tutors/sophia.jpg',
+  //       bio: 'Experienced English tutor helping students master writing & analysis.',
+  //     },
+  //   ]
 
-
-const TutorSection=({tutor}: {tutor:IUser})=> {
-    
-const tutors = [
-    {
-      name: 'Emily Johnson',
-      subject: 'Mathematics',
-      image: '/tutors/emily.jpg',
-      bio: 'Passionate math tutor with 5+ years of experience helping students excel.',
-    },
-    {
-      name: 'Daniel Kim',
-      subject: 'Physics',
-      image: '/tutors/daniel.jpg',
-      bio: 'Physics enthusiast making complex concepts simple and fun.',
-    },
-    {
-      name: 'Sophia Lee',
-      subject: 'English Literature',
-      image: '/tutors/sophia.jpg',
-      bio: 'Experienced English tutor helping students master writing & analysis.',
-    },
-  ]
   return (
     <section className="py-20 my-20">
       <div className="text-center mb-12">
@@ -40,7 +39,6 @@ const tutors = [
         >
           Meet Our Top Tutors 👩‍🏫👨‍🏫
         </motion.h2>
-        <p className="text-gray-600 mt-2">{tutor?.address ||"ctg"}</p>
       </div>
 
       <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -54,20 +52,32 @@ const tutors = [
           >
             <div className="relative w-full h-60">
               <Image
-                src={tutor.image}
-                alt={tutor.name}
+                src={tutor?.profilePicture || img}
+                alt={tutor?.name || "tutor"}
                 layout="fill"
                 objectFit="cover"
                 className="group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="p-4 space-y-1">
-              <h3 className="text-xl font-semibold text-blue-700">{tutor.name}</h3>
-              <p className="text-sm text-blue-500">{tutor.subject}</p>
-              <p className="text-sm text-gray-600">{tutor.bio}</p>
+              <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition duration-300">
+                {tutor?.name}
+              </h3>
+              <p className="text-red-400 font-semibold ">
+                {" "}
+                {tutor?.subjects?.split(",").map((subject, index) => (
+                  <span key={index}>
+                    {index > 0 ? ", " : ""}{subject}
+                  </span>
+                ))}
+              </p>
+              <p className="text-sm text-gray-600">{tutor?.bio}</p>
             </div>
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
-              <Link href="/tutors/details" className="bg-blue-600 text-white text-sm px-4 py-1.5 rounded-md shadow-lg hover:bg-blue-700">
+              <Link
+                href="/tutors/details"
+                className="bg-blue-600 text-white text-sm px-4 py-1.5 rounded-md shadow-lg hover:bg-blue-700"
+              >
                 View Profile
               </Link>
             </div>
@@ -75,13 +85,13 @@ const tutors = [
         ))}
       </div>
 
-      <div className = "text-center my-5">
-      <Link href={"/tutors"}>
-      <Button>See All </Button>
-      </Link>
-        </div>
+      <div className="text-center my-5">
+        <Link href={"/tutors"}>
+          <Button>See All </Button>
+        </Link>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default TutorSection
+export default TutorSection;

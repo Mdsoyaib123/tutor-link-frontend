@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import TutorsCard from "./TutorsCard";
+import { GiFunnel } from "react-icons/gi";
 
 const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
   const searchParams = useSearchParams();
@@ -16,9 +17,9 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
   const [subject, setSubject] = useState("All");
   const [rating, setRating] = useState("");
   const [priceSort, setPriceSort] = useState("");
-  const [address, setAddress] = useState("");
+ 
 
-  console.log("tutors", tutors);
+  // console.log("tutors", tutors);
 
   useEffect(() => {
     const initialSearchTerm = decodeURIComponent(
@@ -39,11 +40,6 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
     )
     ?.filter((tutor) =>
       subject !== "All" ? tutor.subjects?.includes(subject) : true
-    )
-    ?.filter((tutor) =>
-      address
-        ? tutor.address?.toLowerCase().includes(address.toLowerCase())
-        : true
     )
     .sort((x, y) => {
       if (rating === "asc")
@@ -79,10 +75,11 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
         <Sheet>
           <SheetTrigger asChild className=" flex justify-end">
             <Button variant="outline" className="border-blue-600 ">
-              {/* <GiFunnel /> */}
+              <GiFunnel />
               Filter Tutors
             </Button>
           </SheetTrigger>
+
           <SheetContent
             side="top"
             className="w-[300px] sm:w-[400px]  py-8  px-6 overflow-y-scroll  "
@@ -93,7 +90,6 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
               <button
                 onClick={() => {
                   setSearchTerm("");
-                  setAddress("");
                   setSubject("All");
                   setRating("");
                   setPriceSort("");
@@ -125,26 +121,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                   />
                 </CollapsibleContent>
               </Collapsible>
-              {/* search by location */}
-              <Collapsible defaultOpen>
-                <CollapsibleTrigger asChild>
-                  <button className="group flex items-center justify-between w-full text-left font-medium ">
-                    <span>Location</span>
-                    <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
-                      <ChevronDown className="h-4 w-4" />
-                    </span>
-                  </button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="mt-2">
-                  <Input
-                    type="text"
-                    placeholder="Enter the location"
-                    className=" hover:shadow-lg"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </CollapsibleContent>
-              </Collapsible>
+                {/* sort by suj */}
               <Collapsible defaultOpen className=" my-4">
                 <CollapsibleTrigger asChild>
                   <button className="group flex text-base items-center justify-between w-full text-left font-medium ">
@@ -181,6 +158,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                   </Select>
                 </CollapsibleContent>
               </Collapsible>
+              {/* rating */}
               <Collapsible defaultOpen>
                 <CollapsibleTrigger asChild>
                   <button className="group flex items-center justify-between w-full text-left font-medium ">
@@ -202,6 +180,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                   </Select>
                 </CollapsibleContent>
               </Collapsible>
+              {/* sort by price */}
               <Collapsible defaultOpen className=" my-4">
                 <CollapsibleTrigger asChild>
                   <button className="group flex items-center justify-between w-full text-left font-medium ">
@@ -238,7 +217,6 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
             <button
               onClick={() => {
                 setSearchTerm("");
-                setAddress("");
                 setSubject("All");
                 setRating("");
                 setPriceSort("");
@@ -272,26 +250,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                 />
               </CollapsibleContent>
             </Collapsible>
-            {/* search by location */}
-            <Collapsible defaultOpen>
-              <CollapsibleTrigger asChild>
-                <button className="group flex items-center justify-between w-full text-left font-medium ">
-                  <span>Location</span>
-                  <span className="transition-transform duration-300 group-data-[state=open]:rotate-180">
-                    <ChevronDown className="h-4 w-4" />
-                  </span>
-                </button>
-              </CollapsibleTrigger>
-              <CollapsibleContent className="mt-2">
-                <Input
-                  type="text"
-                  placeholder="Enter the location"
-                  className=" hover:shadow-lg"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </CollapsibleContent>
-            </Collapsible>
+            {/* sort by suj */}
             <Collapsible defaultOpen className=" my-4">
               <CollapsibleTrigger asChild>
                 <button className="group flex text-base items-center justify-between w-full text-left font-medium ">
@@ -328,6 +287,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                 </Select>
               </CollapsibleContent>
             </Collapsible>
+            {/* rating */}
             <Collapsible defaultOpen>
               <CollapsibleTrigger asChild>
                 <button className="group flex items-center justify-between w-full text-left font-medium ">
@@ -349,6 +309,7 @@ const BrowseTutors = ({ tutors }: { tutors: IUser[] }) => {
                 </Select>
               </CollapsibleContent>
             </Collapsible>
+            {/* sort by price */}
             <Collapsible defaultOpen className=" my-4">
               <CollapsibleTrigger asChild>
                 <button className="group flex items-center justify-between w-full text-left font-medium ">

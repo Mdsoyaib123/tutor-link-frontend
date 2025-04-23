@@ -7,12 +7,12 @@ const TutorProfile = async ({
 }: {
   params: Promise<{ tutorId: string }>;
 }) => {
-  const { tutorId } = await params;
-  const { data: tutor } = await getSingleTutor(tutorId);
+  const { tutorId } = await params; 
+  const { data: tutor } = await getSingleTutor(tutorId);  // Fetch the single tutor data using the tutorId
 
   return (
     <div className="max-w-7xl py-28 w-full mx-auto">
-      <DetailsProfiles tutor={tutor} />
+      <DetailsProfiles tutor={tutor} /> {/* Pass the fetched tutor data to the DetailsProfiles component */}
     </div>
   );
 };
