@@ -28,7 +28,9 @@ const NavBar = () => {
     { label: "Tutors", href: "/tutors" },
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
-    { label: "FAQ", href: "/faq" },
+    { label: "Blogs", href: "/blogs" },
+    { label: "FAQ", href: "/faq" }
+    
   ];
 
   const { user, setIsLoading } = useUser();
@@ -186,7 +188,6 @@ const NavBar = () => {
         </div>
       )}
 
-      {/* user section  */}
     </nav>
   );
 };

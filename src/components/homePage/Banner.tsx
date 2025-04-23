@@ -29,9 +29,9 @@ const Banner = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex justify-center md:justify-start gap-4 pt-2">
-            <Link href="/register">
-              <Button>Sign Up as Student</Button>
+          <div className="flex justify-center md:justify-start  gap-4 pt-2">
+            <Link href="/tutors">
+              <Button className="">Find Tutors</Button>
             </Link>
           </div>
         </div>

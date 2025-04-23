@@ -25,7 +25,7 @@ export default function ProfileCard() {
   return (
     <div className="flex items-center justify-center ">
       {!editMode ? (
-        <div className="bg-white shadow-lg rounded-xl p-6 w-[350px] text-center">
+        <div className="bg-white dark:bg-gray-600 shadow-lg rounded-xl p-6 w-[350px] text-center">
           <img
             src={profile.image}
             alt="Profile"
