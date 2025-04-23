@@ -75,7 +75,7 @@ const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
             </div>
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
               <Link
-                href="/tutors/details"
+                href={`/tutors/${tutor?._id}`}
                 className="bg-blue-600 text-white text-sm px-4 py-1.5 rounded-md shadow-lg hover:bg-blue-700"
               >
                 View Profile
