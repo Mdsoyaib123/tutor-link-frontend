@@ -29,26 +29,26 @@ const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
   //   ]
 
   return (
-    <section className="py-20 my-20">
+    <section className="py-20 my-20 max-w-7xl mx-auto px-4 transition-colors duration-300">
       <div className="text-center mb-12">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl font-bold text-blue-700"
+          className="text-3xl md:text-4xl  font-bold text-blue-700 dark:text-white"
         >
           Meet Our Top Tutors 👩‍🏫👨‍🏫
         </motion.h2>
       </div>
 
-      <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {tutors.map((tutor, idx) => (
           <motion.div
             key={idx}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: idx * 0.1 }}
-            className="bg-white rounded-xl overflow-hidden shadow-md group relative"
+            className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md dark:shadow-lg group relative transform transition-transform duration-300 hover:scale-105"
           >
             <div className="relative w-full h-60">
               <Image
@@ -85,9 +85,11 @@ const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
         ))}
       </div>
 
-      <div className="text-center my-5">
-        <Link href={"/tutors"}>
-          <Button>See All </Button>
+      <div className="text-center my-10">
+        <Link href="/tutors">
+          <Button className="transition-transform duration-300 hover:-translate-y-1 hover:scale-105">
+            See All
+          </Button>
         </Link>
       </div>
     </section>

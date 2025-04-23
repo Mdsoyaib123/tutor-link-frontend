@@ -7,7 +7,7 @@ import ReviewSection from "@/components/AboutPage/ReviewSection"
 
 const AboutPage = () => {
     return (
-        <div className="mt-32" >
+        <div className="mt-22" >
             <MissionSection/>
             <BannerSection/>
             <WorkingSection/>
