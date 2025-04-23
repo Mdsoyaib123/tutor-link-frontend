@@ -25,9 +25,9 @@ const BlogPage = async () => {
   const BlogData = await res.json()
 
   return (
-    <div className=" text-white flex flex-col justify-center items-center mt-22">
+    <div className="max-w-7xl mx-auto text-white flex flex-col justify-center items-center mt-22">
        <BlogHeader></BlogHeader>
-     <div className="grid grid-cols-2 gap-4 mt-6">
+     <div className="md:grid md:grid-cols-2 lg:grid-cols-3 justify-between gap-4 md:gap-2 mt-8">
       {
         BlogData?.articles?.map((item:BlogArticle,index:number)=><BlogCard key={index} blog={item}></BlogCard>)
       }
