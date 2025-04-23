@@ -3,7 +3,8 @@ import Banner from "@/components/homePage/Banner";
 import BenefitsSection from "@/components/homePage/BenefitsSection"
 import Partnerships from "@/components/homePage/PartnershipSection";
 import Slider from "@/components/homePage/Slider"
-import TutorSection from "@/components/homePage/TutorSection"
+import TutorSectionWrapper from "@/components/homePage/TutorSectionWrapper";
+
  
 
 
@@ -15,13 +16,10 @@ export default function HomePage() {
       <Banner/>
       <BenefitsSection/>
       <Slider/>
+      <TutorSectionWrapper/>
       <ActionBanner/>
-      <TutorSection/>
       <Partnerships/>
 
-     
-      
-     
     </div>
     )
 }

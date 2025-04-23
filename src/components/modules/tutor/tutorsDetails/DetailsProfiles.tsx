@@ -212,7 +212,7 @@ const DetailsProfiles = ({ tutor }: { tutor: IUser | null }) => {
                       key={index}
                       className=""
                     >
-                      {subject.trim()}
+                     {index > 0 ? " and " : ""}{subject}
                     </span>
                   ))}, university of Oxford.(2020-2022){" "}
                     </li>

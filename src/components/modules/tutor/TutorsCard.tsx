@@ -39,7 +39,7 @@ const TutorsCard = ({ tutor }: { tutor: IUser }) => {
             many years of experience tutoring{" "}
             {tutor?.subjects?.split(",").map((subject, index) => (
               <span key={index} className="font-bold">
-                {subject}
+                {index > 0 ? " and " : ""}{subject}
               </span>
             ))}
             , a subject I’m truly passionate about. My strong foundation in
