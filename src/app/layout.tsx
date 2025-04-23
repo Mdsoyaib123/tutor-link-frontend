@@ -39,15 +39,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.className} ${geistMono.className} antialiased  transition-colors duration-300 dark:bg-gray-900 `}
       >
-
-      <Toaster position="top-right" />
+        <Toaster position="top-right" />
         <Providers>
-        <ReduxProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <DarkModeToggle />
-          </ThemeProvider>
-        </ReduxProvider>
+          <ReduxProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              {children}
+              <DarkModeToggle />
+            </ThemeProvider>
+          </ReduxProvider>
         </Providers>
         {/* <Toaster position="top-right" />
         <Providers>
