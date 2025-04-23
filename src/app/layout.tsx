@@ -7,9 +7,7 @@ import ReduxProvider from "@/Redux/provider";
 import { ThemeProvider } from "next-themes";
 import DarkModeToggle from "@/components/darkMood/DarkMoodToggle";
 
-
 import Providers from "@/providers/Providers";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,20 +36,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
+      <body
         className={`${geistSans.className} ${geistMono.className} antialiased  transition-colors duration-300 dark:bg-gray-900 `}
       >
         <Toaster position="top-right" />
         <ReduxProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <DarkModeToggle />
-        </ThemeProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+            <DarkModeToggle />
+          </ThemeProvider>
         </ReduxProvider>
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+
         <Toaster position="top-right" />
-        <Providers><ReduxProvider>{children}</ReduxProvider></Providers>
+        <Providers>
+          <ReduxProvider>{children}</ReduxProvider>
+        </Providers>
       </body>
     </html>
   );
