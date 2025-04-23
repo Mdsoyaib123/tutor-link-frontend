@@ -8,6 +8,10 @@ export default function SidebarWrapper() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+  const role = "tutor"; // Or get this from props/context/auth
+
+  // Set route prefix based on role
+  const routePrefix = role === "tutor" ? "/tutor" : "/studentdashboard";
 
   return (
     <>
@@ -32,31 +36,35 @@ export default function SidebarWrapper() {
           </div>
           <nav className="space-y-4 text-indigo-800 font-medium">
             <Link
-              href="/studentdashboard/profile"
+              href={`${routePrefix}/profile`}
               className="block hover:text-indigo-500"
             >
               👤 Profile
             </Link>
+
+            {role === "tutor" ? (
+              <Link
+                href="/tutor/studentrequest"
+                className="block hover:text-indigo-500"
+              >
+                📨 Student Requests
+              </Link>
+            ) : (
+              <Link
+                href="/studentdashboard/myrequest"
+                className="block hover:text-indigo-500"
+              >
+                📚 Manage Tutors
+              </Link>
+            )}
+
             <Link
-              href="/studentdashboard/myrequest"
-              className="block hover:text-indigo-500"
-            >
-              📚 Manage Tutors
-            </Link>
-            <Link
-              href="/studentdashboard/mybookings"
+              href={`${routePrefix}/mybookings`}
               className="block hover:text-indigo-500"
             >
               📅 My Bookings
             </Link>
           </nav>
-          <div className="mt-12 text-sm text-gray-500">
-            <span className="text-gray-800 font-medium">tuder</span>
-            <br />
-            <a href="mailto:y@gmail.com" className="text-indigo-500">
-              y@gmail.com
-            </a>
-          </div>
         </div>
       </aside>
 
