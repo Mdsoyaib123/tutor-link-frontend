@@ -17,7 +17,7 @@ export default function SidebarWrapper() {
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded shadow"
+        className="lg:hidden fixed top-4 left-4 z-50 bg-white dark:text-gray-900 p-2 rounded shadow"
         onClick={toggleSidebar}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -28,7 +28,7 @@ export default function SidebarWrapper() {
         className={`dark:bg-gray-800 dark:text-white text-blue-600 fixed top-0 left-0 z-40 h-full  bg-white shadow-lg transform transition-transform duration-300 ease-in-out 
           ${
             isOpen ? "translate-x-0" : "-translate-x-full"
-          } md:relative md:translate-x-0 md:h-screen`}
+          } lg:relative lg:translate-x-0 lg:h-screen`}
       >
         <div className="p-4">
           <div className="text-3xl font-extrabold mb-10 ">

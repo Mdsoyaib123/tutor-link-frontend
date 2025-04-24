@@ -1,13 +1,19 @@
 import BrowseTutors from "@/components/modules/tutor/BrowseTutors";
 import { getAllTutors } from "@/services/tutor";
 import React from "react";
+import type { Metadata } from 'next'
+
+export const metadata:Metadata = {
+  title: "TutorLink | Tutors",
+  description: "Find an online tutor to help you study",
+};
 
 const TutorsPage = async () => {
   const tutorsData = await getAllTutors(); // Fetch all tutors data
   // console.log(tutorsData ,"tutorsData");
   const tutors = tutorsData?.data || [];
   return (
-    <div className="max-w-7xl mx-auto mt-32">
+    <div className="max-w-7xl h-screen mx-auto mt-22 pt-16">
       <h2 className="text-2xl md:text-4xl font-bold text-center">
         Find an online tutor to help you study
       </h2>

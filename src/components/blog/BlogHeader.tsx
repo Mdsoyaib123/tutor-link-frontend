@@ -4,8 +4,8 @@ const BlogHeader = () => {
       <h3 className="text-lg md:text-2xl font-bold text-blue-700  mb-2">
         Our Blogs
       </h3>
-      <h2 className="text-3xl md:text-4xl text-black dark:text-white">Our Recent News</h2>
-      <p className="text-black font-semibold dark:text-gray-300 max-w-4xl mx-auto text-sm ">
+      <h2 className="text-3xl md:text-4xl font-bold text-blue-800 dark:text-white">Our Recent News</h2>
+      <p className="text-gray-600 dark:text-gray-300 mt-2">
         Stay Informed & Inspired: The Latest in Education, Tutoring, and
         Learning Strategies
       </p>

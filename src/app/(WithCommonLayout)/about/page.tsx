@@ -3,7 +3,12 @@ import MissionSection from "@/components/AboutPage/MissionSection";
 import WorkingSection from "@/components/AboutPage/WorkingSection";
 import TeamSection from "@/components/AboutPage/TeamSection";
 import ReviewSection from "@/components/AboutPage/ReviewSection"
-
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata={
+  title: "TutorLink | About",
+  description : "TutorLink helps you to find Best tutors"
+}
 
 const AboutPage = () => {
     return (

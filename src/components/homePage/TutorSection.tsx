@@ -3,7 +3,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import img from "../../../public/tutor.jpg";
 import { IUser } from "@/types/user";
 
 const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
@@ -52,7 +51,7 @@ const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
           >
             <div className="relative w-full h-60">
               <Image
-                src={tutor?.profilePicture || img}
+                src={tutor?.profilePicture || "https://i.ibb.co/6s0x5gD/default-profile.png"}
                 alt={tutor?.name || "tutor"}
                 layout="fill"
                 objectFit="cover"

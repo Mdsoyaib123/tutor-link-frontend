@@ -4,7 +4,12 @@ const nextConfig = {
     turbo: true,
   },
   images: {
-    domains: ['techcrunch.com', ], // Add your allowed image hostnames here
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**', // You can replace this with actual domains
+      },
+    ],
   },
 }
 

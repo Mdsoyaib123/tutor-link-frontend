@@ -39,7 +39,7 @@ const ReviewSection = () => {
   });
 
   return (
-    <section className="py-16 px-4 bg-blue-50 dark:bg-blue-900">
+    <section className="py-16 mb-16 px-4 bg-blue-50 dark:bg-blue-900">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-blue-800 dark:text-white mb-10">What People Are Saying</h2>
 
