@@ -1,4 +1,10 @@
 import FAQ from '@/components/faq/Faq'
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata={
+  title: "TutorLink | FAQ",
+  description : "TutorLink helps you to find Best tutors"
+}
 
 const FAQPage = () => {
     return (

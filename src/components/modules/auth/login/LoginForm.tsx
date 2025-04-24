@@ -34,7 +34,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const res = await loginUser(formData);
-      console.log(res.data.accessToken);
+      // console.log(res.data.accessToken);
       
       if (res?.success) {
         const user = verifyToken(res?.data?.accessToken) as TUser;

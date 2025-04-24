@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const partners = [
-  { name: 'Khan Academy', logo: '/partners/khan.png' },
-  { name: 'Coursera', logo: '/partners/coursera.png' },
-  { name: 'EdX', logo: '/partners/edx.png' },
-  { name: 'Udemy', logo: '/partners/udemy.png' },
-  { name: 'UNESCO', logo: '/partners/unesco.png' },
+  { name: 'Khan Academy', logo: 'https://i.ibb.co.com/Q7YKs7rr/images.jpg' },
+  { name: 'Coursera', logo: 'https://i.ibb.co.com/kPV0r9R/coursera-on-campus-launched-to-enhance-reach-of-its-online-courses.webp' },
+  { name: 'EdX', logo: 'https://i.ibb.co.com/LXtGHyjH/channels4-profile.jpg' },
+  { name: 'Udemy', logo: 'https://i.ibb.co.com/sTxdpTq/gametiles-com-udemy-android.jpg' },
+  { name: 'UNESCO', logo: 'https://i.ibb.co.com/HLjD0kRD/Design-sans-titre-1.png' },
 ];
 
 const Partnerships = () => {
@@ -37,7 +37,7 @@ const Partnerships = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="relative w-28 h-14 mx-auto grayscale hover:grayscale-0 transition"
+              className="relative w-28 h-14 mx-auto"
             >
               <Image
                 src={partner.logo}
