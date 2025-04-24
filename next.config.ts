@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     turbo: true,
   },
+  images: {
+    domains: ['techcrunch.com', ], // Add your allowed image hostnames here
+  },
 }
 
 module.exports = nextConfig

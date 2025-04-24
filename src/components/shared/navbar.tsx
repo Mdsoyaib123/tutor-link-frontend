@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import { LayoutDashboard, LogIn, LogOut, Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import { useUser } from "@/context/UserContext";
-import { logout } from "@/services/auth";
+// import { useUser } from "@/context/UserContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,30 +15,15 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useAppDispatch,useAppSelector } from "@/Redux/hook";
+import { persistor } from "@/Redux/store";
+import { logout } from '@/Redux/Features/Auth/authSlice';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { user, setIsLoading } = useUser();
-  // console.log(user ,setIsLoading,"from navbar");
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-
-  const handleLogOut = () => {
-    logout();
-    setIsLoading(true); 
-    router.push("/");
-  };
+  const dispatch = useAppDispatch()
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -50,7 +34,25 @@ const NavBar = () => {
     { label: "FAQ", href: "/faq" },
   ];
 
-  
+  // const { user, setIsLoading } = useUser();
+  const user =useAppSelector((state)=>state.auth.user)
+  const router = useRouter();
+
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 20);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleLogOut = () => {
+    dispatch(logout());
+    persistor.purge();
+    router.push("/");
+    router.refresh();
+  };
 
   const linkClasses = (href: string) =>
     `text-lg font-bold transition transform hover:-translate-y-0.5 hover:scale-105 duration-200 ${
@@ -101,9 +103,7 @@ const NavBar = () => {
               <DropdownMenuTrigger>
                 <Avatar>
                   <AvatarImage
-                    src={
-                      user?.profilePicture || "https://github.com/shadcn.png"
-                    }
+                    src={"https://github.com/shadcn.png"}
                     alt="User Profile Picture"
                     className="w-10 h-10 rounded-full"
                   />
