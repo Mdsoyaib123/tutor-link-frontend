@@ -1,7 +1,6 @@
 
 import { getCurrentUser } from "@/services/auth";
 import { IUser } from "@/types/user";
-
 import {
   createContext,
   Dispatch,
@@ -24,16 +23,21 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleUser = async () => {
-    const user = await getCurrentUser();
-    setUser(user);
-    setIsLoading(false);
-  };
-
   useEffect(() => {
+    const handleUser = async () => {
+      try {
+        const user = await getCurrentUser();
+        setUser(user);
+      } catch (error) {
+        console.error("Error loading user:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     handleUser();
- 
-  }, [isLoading]);
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
@@ -44,11 +48,9 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useUser = () => {
   const context = useContext(UserContext);
-
-  if (context == undefined) {
-    throw new Error("useUser must be used within the UserProvider context");
+  if (context === undefined) {
+    throw new Error("useUser must be used within a UserProvider");
   }
-
   return context;
 };
 

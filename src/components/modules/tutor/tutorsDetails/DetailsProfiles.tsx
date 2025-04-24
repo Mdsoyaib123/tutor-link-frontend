@@ -228,7 +228,7 @@ const DetailsProfiles = ({ tutor }: { tutor: IUser | null }) => {
               </div>
 
               <hr className=" border-blue-400 " />
-              <div className="my-6 flex gap-12 ">
+              <div className="my-6 flex flex-col md:flex-row gap-12 ">
                 <div>
                   <h2 className="text-xl font-semibold flex gap-3">
                     <GraduationCap color="#155dfc" size={30} />
@@ -264,6 +264,8 @@ const DetailsProfiles = ({ tutor }: { tutor: IUser | null }) => {
               </div>
 
               <hr className=" border-blue-400 " />
+
+              {/* contact section */}
               <div className="my-6">
                 <h2 className="text-xl font-semibold pb-2 flex gap-3">
                   <UserSearch color="#155dfc" size={30} />

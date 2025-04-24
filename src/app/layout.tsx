@@ -23,10 +23,8 @@ export const metadata: Metadata = {
   title: "TutorLink",
   description: "Providing a platform for tutors and students to connect",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
-  },
+    icon: "https://i.ibb.co.com/FqcCMRkT/logo.png",
+    },
 };
 
 export default function RootLayout({

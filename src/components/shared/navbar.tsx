@@ -19,7 +19,6 @@ import { useAppDispatch,useAppSelector } from "@/Redux/hook";
 import { persistor } from "@/Redux/store";
 import { logout } from '@/Redux/Features/Auth/authSlice';
 
-
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -32,8 +31,7 @@ const NavBar = () => {
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
     { label: "Blogs", href: "/blogs" },
-    { label: "FAQ", href: "/faq" }
-    
+    { label: "FAQ", href: "/faq" },
   ];
 
   // const { user, setIsLoading } = useUser();
@@ -191,7 +189,6 @@ const NavBar = () => {
           </div>
         </div>
       )}
-
     </nav>
   );
 };

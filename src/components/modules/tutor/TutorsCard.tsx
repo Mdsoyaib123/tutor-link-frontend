@@ -12,9 +12,9 @@ import Image from "next/image";
 const TutorsCard = ({ tutor }: { tutor: IUser }) => {
   return (
     <div className="bg-gray-100 dark:bg-gray-700 relative overflow-hidden hover:shadow-lg  group rounded-xl p-5 transition-all duration-500 transform mb-6">
-      <div className=" flex justify-between gap-6 ">
+      <div className=" flex flex-col lg:flex-row justify-between gap-6 ">
 
-        <div className="w-1/4">
+        <div className=" lg:w-1/4">
           <Image
             src={tutor?.profilePicture || img}
             alt={tutor?.name || "Tutor"}
@@ -25,7 +25,7 @@ const TutorsCard = ({ tutor }: { tutor: IUser }) => {
       
         </div>
 
-        <div className="w-2/4">
+        <div className="lg:w-2/4">
           <h1 className="text-gray-600 text-xl uppercase dark:text-gray-200 font-bold">
             {tutor?.name}
           </h1>
@@ -49,7 +49,7 @@ const TutorsCard = ({ tutor }: { tutor: IUser }) => {
           </p>
         </div>
 
-        <div className="w-1/4 space-y-2 flex flex-col justify-center items-center text-center">
+        <div className="lg:w-1/4 space-y-2 flex flex-col justify-center items-center text-center">
           <p>
             {" "}
             <span className="text-sm font-bold">

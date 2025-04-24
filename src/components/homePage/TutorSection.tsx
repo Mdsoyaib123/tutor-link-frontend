@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
+// import img from "../../../public/tutor.jpg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import img from "../../../public/tutor.jpg";
 import { IUser } from "@/types/user";
 
 const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
@@ -29,7 +29,7 @@ const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
   //   ]
 
   return (
-    <section className="py-20 my-20 max-w-7xl mx-auto px-4 transition-colors duration-300">
+    <section className="py-6 my-6 max-w-7xl mx-auto px-4 transition-colors duration-300">
       <div className="text-center mb-12">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -52,7 +52,7 @@ const TutorSection = ({ tutors }: { tutors: IUser[] }) => {
           >
             <div className="relative w-full h-60">
               <Image
-                src={tutor?.profilePicture || img}
+                src={tutor?.profilePicture || "https://i.ibb.co/6s0x5gD/default-profile.png"}
                 alt={tutor?.name || "tutor"}
                 layout="fill"
                 objectFit="cover"
