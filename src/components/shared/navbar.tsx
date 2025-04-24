@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { LayoutDashboard, LogIn, LogOut, Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import { useUser } from "@/context/UserContext";
+// import { useUser } from "@/context/UserContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useAppDispatch } from "@/Redux/hook";
+import { useAppDispatch,useAppSelector } from "@/Redux/hook";
 import { persistor } from "@/Redux/store";
 import { logout } from '@/Redux/Features/Auth/authSlice';
 
@@ -36,7 +36,8 @@ const NavBar = () => {
     
   ];
 
-  const { user, setIsLoading } = useUser();
+  // const { user, setIsLoading } = useUser();
+  const user =useAppSelector((state)=>state.auth.user)
   const router = useRouter();
 
   const handleScroll = () => {
@@ -51,7 +52,6 @@ const NavBar = () => {
   const handleLogOut = () => {
     dispatch(logout());
     persistor.purge();
-    setIsLoading(true); // if needed
     router.push("/");
     router.refresh();
   };
@@ -105,7 +105,7 @@ const NavBar = () => {
               <DropdownMenuTrigger>
                 <Avatar>
                   <AvatarImage
-                    src={user?.profilePicture || "https://github.com/shadcn.png"}
+                    src={"https://github.com/shadcn.png"}
                     alt="User Profile Picture"
                     className="w-10 h-10 rounded-full"
                   />

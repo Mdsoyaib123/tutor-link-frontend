@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { BlogArticle } from "@/app/(WithCommonLayout)/blogs/page";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +9,7 @@ const truncateText = (title: string, wordLimit: number) => {
     ? words.slice(0, wordLimit).join(" ") + "..."
     : title;
 };
-const BlogCard = ({ blog:any }) => {
+const BlogCard: React.FC<{ blog: BlogArticle }>  = ({ blog }) => {
   const dateOnly = blog?.publishedAt?.split("T")[0];
 
   return (
