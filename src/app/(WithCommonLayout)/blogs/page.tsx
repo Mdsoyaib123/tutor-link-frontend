@@ -1,5 +1,11 @@
 import BlogCard from "@/components/blog/BlogCard";
 import BlogHeader from "@/components/blog/BlogHeader";
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata={
+  title: "TutorLink | Blogs",
+  description : "TutorLink helps you to find Best tutors"
+}
 
 export type BlogArticle = {
   source: {

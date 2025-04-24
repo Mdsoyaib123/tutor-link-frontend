@@ -28,7 +28,7 @@ const WorkingSection = () => {
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl font-bold text-center text-indigo-700 dark:text-indigo-300 mb-12"
+          className="text-3xl font-bold text-center text-blue-800 dark:text-white mb-12"
         >
           How It Works
         </motion.h2>
@@ -44,12 +44,12 @@ const WorkingSection = () => {
               className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
             >
               <div className="flex items-center mb-4">
-                <div className="bg-indigo-600 text-white w-8 h-8 flex justify-center items-center rounded-full mr-4 transition-all duration-300 hover:bg-indigo-700">
+                <div className="bg-blue-600 text-white w-8 h-8 flex justify-center items-center rounded-full mr-4 transition-all duration-300 hover:bg-indigo-700">
                   <span>{index + 1}</span>
                 </div>
                 {step.icon}
               </div>
-              <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-300 mb-2">{step.title}</h3>
+              <h3 className="text-xl font-semibold text-blue-600 dark:text-indigo-300 mb-2">{step.title}</h3>
               <p className="text-gray-800 dark:text-gray-200 text-sm">{step.description}</p>
             </motion.div>
           ))}

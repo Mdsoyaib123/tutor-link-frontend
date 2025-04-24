@@ -119,8 +119,9 @@ const DetailsProfiles = ({ tutor }: { tutor: IUser | null }) => {
 
       setRequestStatus("pending");
 
-      const response = await sendTutorPermit(tutor?._id, user.user.email);
-console.log(response)
+      const response = await sendTutorPermit(tutor?._id, user.user.email, tutor?.price ?? 0);
+      console.log(response, "response");
+
       if (response.success) {
         toast.success(response.message);
         setRequestStatus("sent");
@@ -164,7 +165,7 @@ console.log(response)
             </div>
 
             <h2 className="text-xl mb-1 font-semibold mt-3"> {tutor?.name} </h2>
-            <div className="flex items-center gap-2 text-gray-300 text-sm">
+            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-200 text-sm">
               <StarRating rating={tutor?.averageRating ?? 0} />
               <span className="font-bold">5.0</span>
             </div>
@@ -180,7 +181,7 @@ console.log(response)
               ))}
             </div>
 
-            <div className="flex items-center gap-2 text-gray-300 text-sm">
+            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-200 text-sm">
               <h2 className="text-xl font-semibold flex gap-3">
                 Hourly rate :
               </h2>
@@ -224,17 +225,17 @@ console.log(response)
                   About
                 </h2>
 
-                <p className="text-gray-300 mt-2">{tutor?.bio}</p>
+                <p className="text-gray-500 dark:text-gray-200 mt-2">{tutor?.bio}</p>
               </div>
 
               <hr className=" border-blue-400 " />
-              <div className="my-6 flex gap-12 ">
+              <div className="my-6 flex flex-col md:flex-row gap-12 ">
                 <div>
                   <h2 className="text-xl font-semibold flex gap-3">
                     <GraduationCap color="#155dfc" size={30} />
                     Education
                   </h2>
-                  <ul className="list-disc text-gray-300 marker:text-green-600 px-6 marker:text-2xl">
+                  <ul className="list-disc text-gray-500 dark:text-gray-200 marker:text-green-600 px-6 marker:text-2xl">
                     <li>
                       Master`s in{" "}
                       {tutor?.subjects?.split(",").map((subject, index) => (
@@ -256,7 +257,7 @@ console.log(response)
                     <Clock3 color="#155dfc" size={30} />
                     Experience
                   </h2>
-                  <ul className="list-disc text-gray-300 marker:text-green-600 px-6 marker:text-2xl">
+                  <ul className="list-disc text-gray-500 dark:text-gray-200 marker:text-green-600 px-6 marker:text-2xl">
                     <li>5+ years of tutoring experience </li>
                     <li>Worked with 50+ students</li>
                   </ul>
@@ -264,18 +265,20 @@ console.log(response)
               </div>
 
               <hr className=" border-blue-400 " />
+
+              {/* contact section */}
               <div className="my-6">
                 <h2 className="text-xl font-semibold pb-2 flex gap-3">
                   <UserSearch color="#155dfc" size={30} />
                   Contact
                 </h2>
-                <h2 className="text-sm text-gray-300 mb-1 flex gap-2 font-bold mt-1">
+                <h2 className="text-sm text-gray-500 dark:text-gray-200 mb-1 flex gap-2 font-bold mt-1">
                   <PhoneCall size={18} /> {tutor?.phone || "01874072***"}{" "}
                 </h2>
-                <h2 className="text-sm text-gray-300 mb-1 flex gap-2 font-bold mt-1">
+                <h2 className="text-sm text-gray-500 dark:text-gray-200 mb-1 flex gap-2 font-bold mt-1">
                   <Mail size={18} /> {tutor?.email}{" "}
                 </h2>
-                <h2 className=" text-gray-300 text-sm font-semibold mt-1 flex items-center gap-2">
+                <h2 className=" text-gray-500 dark:text-gray-200 text-sm font-semibold mt-1 flex items-center gap-2">
                   <MapPinHouse size={18} />
                   {tutor.address || "N/A"}
                 </h2>
@@ -329,7 +332,7 @@ console.log(response)
               </div>
             ))
           ) : (
-            <p className="text-gray-300 text-center text-xl">
+            <p className="text-gray-500 dark:text-gray-200 text-center text-xl">
               No reviews yet...
             </p>
           )}
@@ -371,7 +374,7 @@ console.log(response)
           <DialogFooter className=" justify-center items-center flex">
             <Button
               variant="outline"
-              className="bg-blue-600 text-base text-white   hover:text-blue-600 border-blue-600 flex items-center gap-2 "
+              className="bg-blue-600 text-base text-white  hover:text-blue-600 border-blue-600 flex items-center gap-2 "
               onClick={handleReviewSubmit}
             >
               Submit Review

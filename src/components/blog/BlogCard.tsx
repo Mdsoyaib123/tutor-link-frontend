@@ -13,7 +13,7 @@ const BlogCard: React.FC<{ blog: BlogArticle }>  = ({ blog }) => {
   const dateOnly = blog?.publishedAt?.split("T")[0];
 
   return (
-    <div className="bg-white  hover:shadow-lg hover:shadow-blue-600 rounded-2xl overflow-hidden transition-transform hover:scale-101 my-6 mx-8 shadow-2xl ">
+    <div className="bg-white text-black dark:text-white hover:shadow-lg dark:bg-gray-800 hover:shadow-blue-600 rounded-2xl overflow-hidden transition-transform hover:scale-101 my-6 mx-8 shadow-2xl ">
       <div className="relative">
         <img
           src={blog.urlToImage}
@@ -25,10 +25,10 @@ const BlogCard: React.FC<{ blog: BlogArticle }>  = ({ blog }) => {
         </span>
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-800">
+        <h3 className="text-lg font-semibold ">
           {truncateText(blog.title, 5)}
         </h3>
-        <p className="text-gray-600 w-80 text-sm mt-2">
+        <p className=" w-80 text-sm mt-2">
           {truncateText(blog.description, 15)}{" "}
           <Link
             href={`/blogs/${blog.author}`}

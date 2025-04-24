@@ -1,5 +1,6 @@
 "use client";
 import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -35,9 +36,10 @@ const data = [
 
 export default function MyRequestsTable() {
   const currentUser = useSelector(selectCurrentUser);
-  console.log(currentUser);
-  const [requests, setRequests] = useState([]);
-  console.log(requests);
+
+  const [requests, setRequests] = useState(null);
+ 
+
 
   useEffect(() => {
     const fetchRequest = async () => {
@@ -50,9 +52,8 @@ export default function MyRequestsTable() {
         );
 
         const data = await res.json();
-        console.log("response ", data);
 
-        setRequests(data);
+        setRequests(data?.data);
       } catch (error) {
         console.error("Failed to fetch bookings:", error);
       }
@@ -77,19 +78,23 @@ export default function MyRequestsTable() {
           </tr>
         </thead>
         <tbody>
-          {requests.map((d, i) => (
+          {requests?.map((d, i) => (
+          
             <tr key={i} className="border-t">
               <td className="p-3">{i + 1}</td>
               <td className="p-3">
-                <img
+                <Image
+                width={400}
+                height={400}
                   src="https://github.com/shadcn.png"
                   alt="profile"
                   className="w-8 h-8 rounded-full"
                 />
               </td>
-              <td className="p-3">{d?.tutorId }</td>
+              <td className="p-3">{d.tutorId?.name }</td>
               
-              <td className="p-3">{d?.selectedDate}</td>
+              <td className="p-3">  {new Date(d.tutorId?.availability?.from).toISOString().split("T")[0]} - {new Date(d.tutorId?.availability?.to).toISOString().split("T")[0]}
+              </td>
               <td className="p-3">
                 <span
                   className={`px-2 py-1 rounded text-white text-xs ${
