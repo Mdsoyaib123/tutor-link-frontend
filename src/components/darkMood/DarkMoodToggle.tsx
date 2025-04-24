@@ -15,12 +15,12 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="fixed bottom-4 right-4 z-50 p-3 rounded-full bg-gray-200 dark:bg-gray-800 shadow-lg hover:scale-110 transition"
+      className="fixed bottom-4 right-4 z-50 p-3 rounded-full dark:bg-yellow-600 bg-gray-800 shadow-lg hover:scale-110 transition"
     >
       {theme === "dark" ? (
         <Sun size={20} className="text-yellow-400" />
       ) : (
-        <Moon size={20} className="text-gray-800" />
+        <Moon size={20} className="text-white" />
       )}
     </button>
   );
