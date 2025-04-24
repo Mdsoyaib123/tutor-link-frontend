@@ -6,13 +6,16 @@ import { useAppDispatch } from "@/Redux/hook";
 import { loginUser } from "@/services/auth";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Importing the eye icons
 import { FaGithub, FaGoogle } from "react-icons/fa"; // Importing social media icons
 
 const LoginForm = () => {
+ 
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirectPath');
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
@@ -40,7 +43,11 @@ const LoginForm = () => {
         const user = verifyToken(res?.data?.accessToken) as TUser;
         dispatch(setUser({ user: user, token: res?.data?.accessToken }));
         toast.success(res?.message);
-        router.push("/");
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push('/');
+        }
       } else {
         toast.error(res?.message);
       }

@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useAppDispatch,useAppSelector } from "@/Redux/hook";
 import { persistor } from "@/Redux/store";
 import { logout } from '@/Redux/Features/Auth/authSlice';
+// import { protectedRoutes } from "@/constants";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +38,8 @@ const NavBar = () => {
   // const { user, setIsLoading } = useUser();
   const user =useAppSelector((state)=>state.auth.user)
   const router = useRouter();
-
+  // const location = usePathname();
+ 
   const handleScroll = () => {
     setScrolled(window.scrollY > 20);
   };
@@ -51,7 +53,10 @@ const NavBar = () => {
     dispatch(logout());
     persistor.purge();
     router.push("/");
-    router.refresh();
+    // if (protectedRoutes.some((route) => location.match(route))) {
+    //   router.push("/");
+    // }
+    
   };
 
   const linkClasses = (href: string) =>
