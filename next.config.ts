@@ -4,6 +4,7 @@ const nextConfig = {
     turbo: true,
   },
   images: {
+    domains: ['techcrunch.com', "github.com"], // Add your allowed image hostnames here
     remotePatterns: [
       {
         protocol: 'https',

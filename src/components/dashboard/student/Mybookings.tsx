@@ -1,6 +1,10 @@
-"use client";
+"use client"
+import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const bookings = [
+
+const bookingData = [
   {
     email: "y@gmail.com",
     tutorId: "67c870e5a93ebf2549f7727f",
@@ -36,7 +40,34 @@ const bookings = [
   // ... add other rows similarly
 ];
 
-export default function BookingTable() {
+
+
+ const  BookingTable = ()=>{
+  const currentUser = useSelector(selectCurrentUser);
+  const [bookings, setBookings] = useState([]);
+  console.log(bookings);
+  
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/permits`, {
+          next: { revalidate: 30 },
+        });
+        
+        const data = await res.json();
+        console.log("response ", data);
+    
+        setBookings(data);
+      } catch (error) {
+        console.error("Failed to fetch bookings:", error);
+      }
+    };
+    
+    fetchBookings();
+  }, []);
+
+
+
   return (
     <div className="">
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-x-auto p-4">
@@ -54,7 +85,7 @@ export default function BookingTable() {
             </tr>
           </thead>
           <tbody>
-            {bookings.map((b, i) => (
+            {bookingData.map((b, i) => (
               <tr key={i} className="border-b hover:bg-gray-50">
                 <td className="px-4 py-2">{i + 1}</td>
                 <td className="px-4 py-2">{b.email}</td>
@@ -75,3 +106,5 @@ export default function BookingTable() {
     </div>
   );
 }
+
+export default BookingTable;
