@@ -17,11 +17,29 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { user, setIsLoading } = useUser();
+  // console.log(user ,setIsLoading,"from navbar");
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+
+  const handleLogOut = () => {
+    logout();
+    setIsLoading(true); 
+    router.push("/");
+  };
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -29,28 +47,10 @@ const NavBar = () => {
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
     { label: "Blogs", href: "/blogs" },
-    { label: "FAQ", href: "/faq" }
-    
+    { label: "FAQ", href: "/faq" },
   ];
 
-  const { user, setIsLoading } = useUser();
-  const router = useRouter();
-
-  const handleScroll = () => {
-    setScrolled(window.scrollY > 20);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleLogOut = () => {
-    logout();
-    setIsLoading(true); // if needed
-    router.push("/");
-    router.refresh();
-  };
+  
 
   const linkClasses = (href: string) =>
     `text-lg font-bold transition transform hover:-translate-y-0.5 hover:scale-105 duration-200 ${
@@ -101,7 +101,9 @@ const NavBar = () => {
               <DropdownMenuTrigger>
                 <Avatar>
                   <AvatarImage
-                    src={user?.profilePicture || "https://github.com/shadcn.png"}
+                    src={
+                      user?.profilePicture || "https://github.com/shadcn.png"
+                    }
                     alt="User Profile Picture"
                     className="w-10 h-10 rounded-full"
                   />
@@ -187,7 +189,6 @@ const NavBar = () => {
           </div>
         </div>
       )}
-
     </nav>
   );
 };
