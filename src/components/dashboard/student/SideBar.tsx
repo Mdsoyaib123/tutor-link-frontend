@@ -11,7 +11,7 @@ export default function SidebarWrapper() {
   const role = "tutor"; // Or get this from props/context/auth
 
   // Set route prefix based on role
-  const routePrefix = role === "tutor" ? "/tutor" : "/studentdashboard";
+  const routePrefix = role == "tutor" ? "/tutor" : "/studentdashboard";
 
   return (
     <>
@@ -31,9 +31,11 @@ export default function SidebarWrapper() {
           } md:relative md:translate-x-0 md:h-screen`}
       >
         <div className="p-4">
-          <div className="text-3xl font-extrabold mb-10 text-indigo-600">
-            TutorLink
-          </div>
+          <Link href={"/"}>
+            <div className="text-3xl font-extrabold mb-10 text-indigo-600">
+              TutorLink
+            </div>
+          </Link>
           <nav className="space-y-4 text-indigo-800 font-medium">
             <Link
               href={`${routePrefix}/profile`}
