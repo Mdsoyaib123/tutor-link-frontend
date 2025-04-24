@@ -9,10 +9,10 @@ export default function SidebarWrapper() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-    const role =useAppSelector((state)=>state.auth.user?.role) 
+  const role = useAppSelector((state) => state.auth.user?.role);
 
   // Set route prefix based on role
-  const routePrefix = role === "tutor" ? "/tutor" : "/studentdashboard";
+  const routePrefix = role == "tutor" ? "/tutor" : "/studentdashboard";
 
   return (
     <>
@@ -32,9 +32,9 @@ export default function SidebarWrapper() {
           } lg:relative lg:translate-x-0 lg:h-screen`}
       >
         <div className="p-4">
-          <div className="text-3xl font-extrabold mb-10 ">
-            TutorLink
-          </div>
+          <Link href={"/"}>
+            <div className="text-3xl font-extrabold mb-10 ">TutorLink</div>
+          </Link>
           <nav className="space-y-4  font-medium">
             <Link
               href={`${routePrefix}/profile`}
