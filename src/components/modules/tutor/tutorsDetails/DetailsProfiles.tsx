@@ -119,7 +119,8 @@ const DetailsProfiles = ({ tutor }: { tutor: IUser | null }) => {
 
       setRequestStatus("pending");
 
-      const response = await sendTutorPermit(tutor?._id, user.user.email);
+      const response = await sendTutorPermit(tutor?._id, user.user.email, tutor?.price ?? 0);
+      console.log(response, "response");
 
       if (response.success) {
         toast.success(response.message);
