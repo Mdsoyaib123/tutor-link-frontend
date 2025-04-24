@@ -4,7 +4,7 @@ const nextConfig = {
     turbo: true,
   },
   images: {
-    domains: ['techcrunch.com', ], // Add your allowed image hostnames here
+    domains: ['techcrunch.com', "github.com"], // Add your allowed image hostnames here
   },
 }
 

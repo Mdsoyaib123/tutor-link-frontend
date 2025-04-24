@@ -5,6 +5,8 @@ export type TUser = {
   userId: string;
   role?: string ;
   email: string;
+  phone?:string,
+  address?:string,
   iat: number;
   exp: number;
 };
@@ -28,6 +30,11 @@ export const authSlice = createSlice({
       state.user = user;
       state.token = token;
     },
+    updateUser(state, action) {
+      if (state.user) {
+        Object.assign(state.user, action.payload);
+      }
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -35,7 +42,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { setUser, logout ,updateUser} = authSlice.actions;
 
 export default authSlice.reducer;
 

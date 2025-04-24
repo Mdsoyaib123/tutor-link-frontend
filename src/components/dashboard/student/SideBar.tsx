@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react"; // You can use Heroicons or other icon sets too
+import { useAppSelector } from "@/Redux/hook";
 
 export default function SidebarWrapper() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-  const role = "tutor"; // Or get this from props/context/auth
+    const role =useAppSelector((state)=>state.auth.user?.role) 
 
   // Set route prefix based on role
   const routePrefix = role === "tutor" ? "/tutor" : "/studentdashboard";
