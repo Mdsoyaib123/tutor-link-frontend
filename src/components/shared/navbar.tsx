@@ -6,7 +6,6 @@ import { LayoutDashboard, LogIn, LogOut, Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { useUser } from "@/context/UserContext";
-import { logout } from "@/services/auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,12 +15,16 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useAppDispatch } from "@/Redux/hook";
+import { persistor } from "@/Redux/store";
+import { logout } from '@/Redux/Features/Auth/authSlice';
 
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const dispatch = useAppDispatch()
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -46,7 +49,8 @@ const NavBar = () => {
   }, []);
 
   const handleLogOut = () => {
-    logout();
+    dispatch(logout());
+    persistor.purge();
     setIsLoading(true); // if needed
     router.push("/");
     router.refresh();
