@@ -6,17 +6,17 @@ const teamMembers = [
   {
     name: 'Aria Johnson',
     role: 'Lead Developer',
-    image: '/team1.jpg',
+    image: 'https://i.ibb.co.com/sxr43gZ/cute-woman-avatar-profile-vector-illustration-1058532-14546.jpg',
   },
   {
     name: 'Liam Chen',
     role: 'Education Specialist',
-    image: '/team2.jpg',
+    image: 'https://i.ibb.co.com/TBTwPyCX/flat-design-happy-middle-age-man-icon-vector-illustration-1322553-70859.jpg',
   },
   {
-    name: 'Sophia Rivera',
+    name: 'Rachin Rivera',
     role: 'Product Designer',
-    image: '/team3.jpg',
+    image: 'https://i.ibb.co.com/S7GPdmtF/young-black-man-icon-vector-man-icon-illustration-face-black-man-icon-african-people-icons-cartoon-s.webp',
   },
 ];
 

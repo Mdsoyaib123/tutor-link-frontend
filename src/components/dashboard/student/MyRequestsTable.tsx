@@ -32,7 +32,7 @@ const data = [
 
 export default function MyRequestsTable() {
   return (
-    <div className="bg-white shadow rounded-lg overflow-x-auto">
+    <div className="bg-white dark:bg-gray-600 shadow rounded-lg overflow-x-auto">
       <table className="min-w-full text-sm">
         <thead className="bg-blue-100 text-blue-800">
           <tr className="text-left">
