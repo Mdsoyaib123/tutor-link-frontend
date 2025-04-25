@@ -1,50 +1,28 @@
-// pages/success.js
+// app/success/page.js
+"use client";
 
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-// import { useCreateOrderMutation } from "../redux/features/orders/Order.api"; // Adjust path as needed
 
 const Success = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
-  //   const [createOrder, { data, error }] = useCreateOrderMutation();
-  const { session_id: sessionId } = router.query;
+  const searchParams = useSearchParams();
 
+  const sessionId = searchParams.get("session_id");
   const orderPlacedRef = useRef(false);
 
-  //   useEffect(() => {
-  //     if (sessionId && !orderPlacedRef.current) {
-  //       orderPlacedRef.current = true;
+  useEffect(() => {
+    if (sessionId && !orderPlacedRef.current) {
+      orderPlacedRef.current = true;
 
-  //       fetch(`http://localhost:5000/checkout-session/${sessionId}`)
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           console.log("Checkout session data:", data);
-  //           createOrder({
-  //             user: data.userId,
-  //             products: [
-  //               {
-  //                 productId: data.productId,
-  //                 quantity: parseInt(data.productQuantity),
-  //                 title: "test",
-  //                 author: "tesd",
-  //               },
-  //             ],
-  //             totalPrice: parseFloat(data.productPrice),
-  //             status: "Paid",
-  //             transaction: {
-  //               id: sessionId,
-  //               transactionStatus: data.paymentStatus,
-  //               method: "card",
-  //               date_time: new Date().toISOString(),
-  //             },
-  //             userEmail: data.userEmail,
-  //           });
-  //         })
-  //         .catch((err) => console.error("Error fetching payment details:", err));
-  //     }
-  //   }, [sessionId]);
+      fetch(`http://localhost:5000/checkout-session/${sessionId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Checkout session data:", data);
+        })
+        .catch((err) => console.error("Error fetching payment details:", err));
+    }
+  }, [sessionId]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-green-100">
