@@ -1,4 +1,8 @@
 "use client";
+import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const data = [
   {
@@ -31,6 +35,33 @@ const data = [
 ];
 
 export default function MyRequestsTable() {
+  const currentUser = useSelector(selectCurrentUser);
+
+  const [requests, setRequests] = useState(null);
+ 
+
+
+  useEffect(() => {
+    const fetchRequest = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API}/permits/get/${currentUser?.email}`,
+          {
+            next: { revalidate: 30 },
+          }
+        );
+
+        const data = await res.json();
+
+        setRequests(data?.data);
+      } catch (error) {
+        console.error("Failed to fetch bookings:", error);
+      }
+    };
+
+    fetchRequest();
+  }, [currentUser?.email]);
+
   return (
     <div className="bg-white dark:bg-gray-600 shadow rounded-lg overflow-x-auto">
       <table className="min-w-full text-sm">
@@ -39,8 +70,7 @@ export default function MyRequestsTable() {
             <th className="p-3">#</th>
             <th className="p-3">Profile</th>
             <th className="p-3">Tutor Name</th>
-            <th className="p-3">Address</th>
-            <th className="p-3">Subjects</th>
+          
             <th className="p-3">Availability</th>
             <th className="p-3">Accepted</th>
             <th className="p-3">Payment</th>
@@ -48,42 +78,45 @@ export default function MyRequestsTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map((d, i) => (
+          {requests?.map((d, i) => (
+          
             <tr key={i} className="border-t">
               <td className="p-3">{i + 1}</td>
               <td className="p-3">
-                <img
-                  src={d.profile}
+                <Image
+                width={400}
+                height={400}
+                  src="https://github.com/shadcn.png"
                   alt="profile"
                   className="w-8 h-8 rounded-full"
                 />
               </td>
-              <td className="p-3">{d.name}</td>
-              <td className="p-3">{d.address}</td>
-              <td className="p-3">{d.subjects}</td>
-              <td className="p-3">{d.availability}</td>
+              <td className="p-3">{d.tutorId?.name }</td>
+              
+              <td className="p-3">  {new Date(d.tutorId?.availability?.from).toISOString().split("T")[0]} - {new Date(d.tutorId?.availability?.to).toISOString().split("T")[0]}
+              </td>
               <td className="p-3">
                 <span
                   className={`px-2 py-1 rounded text-white text-xs ${
                     d.accepted === "Yes" ? "bg-emerald-500" : "bg-rose-500"
                   }`}
                 >
-                  {d.accepted}
+                  {d?.isAccept === true ? <button>Yes</button> : <button>No</button>  }
                 </span>
               </td>
               <td className="p-3">
-                <span className="px-2 py-1 rounded bg-yellow-400 text-white text-xs">
-                  {d.payment}
+                <span className="px-2 py-1 rounded  text-white text-xs">
+                  {d.isPayment === false ? <p>Pending</p> : <p>Paid</p> } 
                 </span>
-              </td>
+              </td> 
               <td className="p-3">
                 <button
                   className={`px-4 py-1 text-white rounded text-sm ${
-                    d.accepted === "Yes"
+                    d.isAccept === true
                       ? "bg-blue-500 hover:bg-blue-600"
                       : "bg-gray-300 cursor-not-allowed"
                   }`}
-                  disabled={d.accepted !== "Yes"}
+                  disabled={d.accepted !== true}
                 >
                   Pay Now
                 </button>

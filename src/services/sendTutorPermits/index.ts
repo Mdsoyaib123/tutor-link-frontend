@@ -1,4 +1,8 @@
-export const sendTutorPermit = async (tutorId: string, userEmail: string) => {
+export const sendTutorPermit = async (
+  tutorId: string,
+  userEmail: string,
+  price: number
+) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/permits/create`,
@@ -10,6 +14,7 @@ export const sendTutorPermit = async (tutorId: string, userEmail: string) => {
         body: JSON.stringify({
           tutorId,
           userEmail,
+          price,
         }),
       }
     );
