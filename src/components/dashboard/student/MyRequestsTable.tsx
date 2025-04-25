@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -38,8 +39,6 @@ export default function MyRequestsTable() {
   const currentUser = useSelector(selectCurrentUser);
 
   const [requests, setRequests] = useState(null);
- 
-
 
   useEffect(() => {
     const fetchRequest = async () => {
@@ -70,7 +69,7 @@ export default function MyRequestsTable() {
             <th className="p-3">#</th>
             <th className="p-3">Profile</th>
             <th className="p-3">Tutor Name</th>
-          
+
             <th className="p-3">Availability</th>
             <th className="p-3">Accepted</th>
             <th className="p-3">Payment</th>
@@ -79,21 +78,32 @@ export default function MyRequestsTable() {
         </thead>
         <tbody>
           {requests?.map((d, i) => (
-          
             <tr key={i} className="border-t">
               <td className="p-3">{i + 1}</td>
               <td className="p-3">
                 <Image
-                width={400}
-                height={400}
+                  width={400}
+                  height={400}
                   src="https://github.com/shadcn.png"
                   alt="profile"
                   className="w-8 h-8 rounded-full"
                 />
               </td>
-              <td className="p-3">{d.tutorId?.name }</td>
-              
-              <td className="p-3">  {new Date(d.tutorId?.availability?.from).toISOString().split("T")[0]} - {new Date(d.tutorId?.availability?.to).toISOString().split("T")[0]}
+              <td className="p-3">{d.tutorId?.name}</td>
+
+              <td className="p-3">
+                {" "}
+                {
+                  new Date(d.tutorId?.availability?.from)
+                    .toISOString()
+                    .split("T")[0]
+                }{" "}
+                -{" "}
+                {
+                  new Date(d.tutorId?.availability?.to)
+                    .toISOString()
+                    .split("T")[0]
+                }
               </td>
               <td className="p-3">
                 <span
@@ -101,25 +111,34 @@ export default function MyRequestsTable() {
                     d.accepted === "Yes" ? "bg-emerald-500" : "bg-rose-500"
                   }`}
                 >
-                  {d?.isAccept === true ? <button>Yes</button> : <button>No</button>  }
+                  {d?.isAccept === true ? (
+                    <button>Yes</button>
+                  ) : (
+                    <button>No</button>
+                  )}
                 </span>
               </td>
               <td className="p-3">
                 <span className="px-2 py-1 rounded  text-white text-xs">
-                  {d.isPayment === false ? <p>Pending</p> : <p>Paid</p> } 
+                  {d.isPayment === false ? <p>Pending</p> : <p>Paid</p>}
                 </span>
-              </td> 
+              </td>
               <td className="p-3">
-                <button
-                  className={`px-4 py-1 text-white rounded text-sm ${
-                    d.isAccept === true
-                      ? "bg-blue-500 hover:bg-blue-600"
-                      : "bg-gray-300 cursor-not-allowed"
-                  }`}
-                  disabled={d.accepted !== true}
-                >
-                  Pay Now
-                </button>
+                {d.isPayment ? (
+                  <Button 
+                    disabled
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-green-700 text-base"
+                  >
+                    Paid 
+                  </Button>
+                ) : (
+                  <Button
+                    disabled={!d.isAccept}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-500 text-base"
+                  >
+                    Pay Now
+                  </Button>
+                )}
               </td>
             </tr>
           ))}

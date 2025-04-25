@@ -44,8 +44,9 @@ const bookingData = [
 
  const  BookingTable = ()=>{
   const currentUser = useSelector(selectCurrentUser);
+  console.log(currentUser)
   const [bookings, setBookings] = useState([]);
-  console.log(bookings);
+  console.log('from state ',bookings)
   
   useEffect(() => {
     const fetchBookings = async () => {
@@ -55,16 +56,20 @@ const bookingData = [
         });
         
         const data = await res.json();
-        console.log("response ", data);
-    
-        setBookings(data);
+
+        if (currentUser?.email) {
+          const filtered = data?.data?.filter((b: any) => b.userEmail === currentUser.email);
+          setBookings(filtered);
+        } else {
+          setBookings([]);
+        }
       } catch (error) {
         console.error("Failed to fetch bookings:", error);
       }
     };
     
     fetchBookings();
-  }, []);
+  }, [currentUser?.email]);
 
 
 
@@ -78,24 +83,24 @@ const bookingData = [
               <th className="px-4 py-2">#</th>
               <th className="px-4 py-2">User Email</th>
               <th className="px-4 py-2">Tutor Id</th>
-              <th className="px-4 py-2">Request Id</th>
+      
               <th className="px-4 py-2">Total Amount</th>
-              <th className="px-4 py-2">Transaction Id</th>
+   
               <th className="px-4 py-2">Payment Status</th>
             </tr>
           </thead>
           <tbody>
-            {bookingData.map((b, i) => (
-              <tr key={i} className="border-b hover:bg-gray-50">
+            {bookings.map((b, i) => (
+              <tr key={i} className="border-b ">
                 <td className="px-4 py-2">{i + 1}</td>
-                <td className="px-4 py-2">{b.email}</td>
-                <td className="px-4 py-2">{b.tutorId}</td>
-                <td className="px-4 py-2">{b.requestId}</td>
-                <td className="px-4 py-2">{b.amount}</td>
-                <td className="px-4 py-2">{b.txnId}</td>
+                <td className="px-4 py-2">{b?.userEmail}</td>
+                <td className="px-4 py-2">{b?.tutorId?._id }</td>
+ 
+                <td className="px-4 py-2">{b.price}</td>
+           
                 <td className="px-4 py-2">
-                  <span className="bg-green-800 text-white text-xs font-semibold px-3 py-1 rounded">
-                    {b.status}
+                  <span className=" text-white text-xs font-semibold px-3 py-1 rounded">
+                    {b?.isPayment === false ? <p>Pending</p> : <p>Paid</p>}
                   </span>
                 </td>
               </tr>
