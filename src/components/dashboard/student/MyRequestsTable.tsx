@@ -4,7 +4,7 @@ import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { loadStripe } from "@stripe/stripe-js";
 
 export default function MyRequestsTable() {
   const currentUser = useSelector(selectCurrentUser);
@@ -31,6 +31,47 @@ export default function MyRequestsTable() {
 
     fetchRequest();
   }, [currentUser?.email]);
+
+  // const makePayment = async () => {
+  //   // if (!user) {
+  //   //   // Redirect to login and remember current location
+  //   //   Navigate("/login", { state: { from: location } });
+  //   //   return;
+  //   // }
+  //   // setLoading(true);
+  //   const stripe = await loadStripe("");
+
+  //   const body = {
+  //     product: book.data,
+  //     user,
+  //   };
+
+  //   const headers = {
+  //     "Content-Type": "application/json",
+  //   };
+
+  //   const response = await fetch(
+  //     "http://localhost:5000/create-checkout-session",
+  //     {
+  //       method: "POST",
+  //       headers: headers,
+  //       body: JSON.stringify(body),
+  //     }
+  //   );
+
+  //   const session = await response.json();
+  //   console.log("session", session);
+
+  //   const result = stripe?.redirectToCheckout({
+  //     sessionId: session?.id,
+  //   });
+  //   // setLoading(false);
+  //   console.log("payment result", result);
+
+  //   if (result?.error) {
+  //     console.log(result?.error);
+  //   }
+  // };
 
   return (
     <div className="bg-white dark:bg-gray-600 shadow rounded-lg overflow-x-auto">
@@ -96,11 +137,11 @@ export default function MyRequestsTable() {
               </td>
               <td className="p-3">
                 {d.isPayment ? (
-                  <Button 
+                  <Button
                     disabled
                     className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-green-700 text-base"
                   >
-                    Paid 
+                    Paid
                   </Button>
                 ) : (
                   <Button
