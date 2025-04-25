@@ -6,10 +6,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
-<<<<<<< HEAD
-=======
-
->>>>>>> c00e275b1b355e6631cd47ba3e39336037b4fc09
 
 export default function MyRequestsTable() {
   const currentUser = useSelector(selectCurrentUser);
