@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "./services/auth";
 
-
-
 type Role = keyof typeof roleBasedPrivateRoutes;
 
-const authRoutes = ["/login", "/register" ];
+const authRoutes = ["/login", "/register"];
 
 const roleBasedPrivateRoutes = {
-  Student: [/^\/studentdashboard/,/^\/tutors/ ], //studentdeshboard
+  Student: [/^\/studentdashboard/, /^\/tutors/], //studentdeshboard
   Tutor: [/^\/tutor/, /^\/tutors(\/.*)?$/], //tutors
 };
 
@@ -22,10 +20,7 @@ export const middleware = async (request: NextRequest) => {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
-        new URL(
-          `/login?redirectPath=${pathname}`,
-          request.url
-        )
+        new URL(`/login?redirectPath=${pathname}`, request.url)
       );
     }
   }
@@ -49,6 +44,6 @@ export const config = {
     "/studentdashboard",
     "/studentdashboard/:path*",
     "/tutor",
-    "/tutor/:path*"
+    "/tutor/:path*",
   ],
 };

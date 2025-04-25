@@ -46,11 +46,12 @@ export default function MyRequestsTable() {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_API}/permits/get/${currentUser?.email}`,
           {
-            next: { revalidate: 30 },
+            next: { revalidate: 5 },
           }
         );
 
         const data = await res.json();
+        console.log("mydata", data);
 
         setRequests(data?.data);
       } catch (error) {
@@ -61,46 +62,42 @@ export default function MyRequestsTable() {
     fetchRequest();
   }, [currentUser?.email]);
 
-  // const makePayment = async () => {
-  //   // if (!user) {
-  //   //   // Redirect to login and remember current location
-  //   //   Navigate("/login", { state: { from: location } });
-  //   //   return;
-  //   // }
-  //   // setLoading(true);
-  //   const stripe = await loadStripe("");
+  const makePayment = async (data) => {
+    console.log("inside paymet", data);
+    const stripe = await loadStripe(
+      "pk_test_51NFeKsHXxHHqqBSEXEZ6oVqeAquqIpszGA5xvnGO3XSkrX53ffO3A2pRkRRuIhjoVvUKiFxBoC476BMmG8pr8GDK00kNXNphd6"
+    );
 
-  //   const body = {
-  //     product: book.data,
-  //     user,
-  //   };
+    const body = {
+      data,
+    };
 
-  //   const headers = {
-  //     "Content-Type": "application/json",
-  //   };
+    const headers = {
+      "Content-Type": "application/json",
+    };
 
-  //   const response = await fetch(
-  //     "http://localhost:5000/create-checkout-session",
-  //     {
-  //       method: "POST",
-  //       headers: headers,
-  //       body: JSON.stringify(body),
-  //     }
-  //   );
+    const response = await fetch(
+      "http://localhost:5000/create-checkout-session",
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }
+    );
 
-  //   const session = await response.json();
-  //   console.log("session", session);
+    const session = await response.json();
+    console.log("session", session);
 
-  //   const result = stripe?.redirectToCheckout({
-  //     sessionId: session?.id,
-  //   });
-  //   // setLoading(false);
-  //   console.log("payment result", result);
+    const result = stripe?.redirectToCheckout({
+      sessionId: session?.id,
+    });
+    // setLoading(false);
+    console.log("payment result", result);
 
-  //   if (result?.error) {
-  //     console.log(result?.error);
-  //   }
-  // };
+    if (result?.error) {
+      console.log(result?.error);
+    }
+  };
 
   return (
     <div className="bg-white dark:bg-gray-600 shadow rounded-lg overflow-x-auto">
@@ -174,6 +171,7 @@ export default function MyRequestsTable() {
                   </Button>
                 ) : (
                   <Button
+                    onClick={() => makePayment(d)}
                     disabled={!d.isAccept}
                     className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-500 text-base"
                   >
