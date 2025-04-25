@@ -73,7 +73,7 @@ const TutorsCard = ({ tutor }: { tutor: IUser }) => {
               {" "}
               <Button
                 variant="outline"
-               className="bg-blue-600 text-base text-white  hover:text-blue-600 border-blue-600 flex items-center gap-2 "
+               className="bg-blue-600 text-base dark:bg-blue-500 text-white  hover:text-blue-600 border-blue-600 flex items-center gap-2 "
               >
                 <ScanEye />
                 Veiw Profile
