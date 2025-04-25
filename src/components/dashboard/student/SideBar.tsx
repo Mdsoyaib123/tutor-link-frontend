@@ -43,7 +43,7 @@ export default function SidebarWrapper() {
               👤 Profile
             </Link>
 
-            {role === "tutor" ? (
+            {role === "Tutor" ? (
               <Link
                 href="/tutor/studentrequest"
                 className="block hover:text-indigo-500"
