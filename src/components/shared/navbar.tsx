@@ -15,16 +15,17 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useAppDispatch,useAppSelector } from "@/Redux/hook";
+import { useAppDispatch, useAppSelector } from "@/Redux/hook";
 import { persistor } from "@/Redux/store";
-import { logout } from '@/Redux/Features/Auth/authSlice';
+import { logout } from "@/Redux/Features/Auth/authSlice";
+import Image from "next/image";
 // import { protectedRoutes } from "@/constants";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -36,10 +37,10 @@ const NavBar = () => {
   ];
 
   // const { user, setIsLoading } = useUser();
-  const user =useAppSelector((state)=>state.auth.user)
+  const user = useAppSelector((state) => state.auth.user);
   const router = useRouter();
   // const location = usePathname();
- 
+
   const handleScroll = () => {
     setScrolled(window.scrollY > 20);
   };
@@ -56,7 +57,6 @@ const NavBar = () => {
     // if (protectedRoutes.some((route) => location.match(route))) {
     //   router.push("/");
     // }
-    
   };
 
   const linkClasses = (href: string) =>
@@ -107,12 +107,19 @@ const NavBar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
-                  <AvatarImage
+                  {/* <AvatarImage
                     src={"https://github.com/shadcn.png"}
                     alt="User Profile Picture"
                     className="w-10 h-10 rounded-full"
+                  /> */}
+                  <Image
+                    src={"https://i.ibb.co/Dc78Zt5/avatar-1299805-1280.png"}
+                    alt={""}
+                    width={40}
+                    height={40}
+                    className="text-blue-600"
                   />
-                  <AvatarFallback>User</AvatarFallback>
+                  {/* <AvatarFallback>User</AvatarFallback> */}
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className=" bg-black border-blue-600 shadow-[0px_0px_5px_theme(colors.blue.600)]">

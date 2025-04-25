@@ -17,11 +17,12 @@ export default function MyRequestsTable() {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_API}/permits/get/${currentUser?.email}`,
           {
-            next: { revalidate: 30 },
+            next: { revalidate: 5 },
           }
         );
 
         const data = await res.json();
+        console.log("mydata", data);
 
         setRequests(data?.data);
       } catch (error) {
@@ -32,12 +33,14 @@ export default function MyRequestsTable() {
     fetchRequest();
   }, [currentUser?.email]);
 
-  const makePayment = async () => {
-    const stripe = await loadStripe("pk-");
+  const makePayment = async (data) => {
+    console.log("inside paymet", data);
+    const stripe = await loadStripe(
+      "pk_test_51NFeKsHXxHHqqBSEXEZ6oVqeAquqIpszGA5xvnGO3XSkrX53ffO3A2pRkRRuIhjoVvUKiFxBoC476BMmG8pr8GDK00kNXNphd6"
+    );
 
     const body = {
-      product: book.data,
-      user,
+      data,
     };
 
     const headers = {
@@ -139,6 +142,7 @@ export default function MyRequestsTable() {
                   </Button>
                 ) : (
                   <Button
+                    onClick={() => makePayment(d)}
                     disabled={!d.isAccept}
                     className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-500 text-base"
                   >
