@@ -101,22 +101,22 @@ export default function MyRequestsTable() {
                     d.accepted === "Yes" ? "bg-emerald-500" : "bg-rose-500"
                   }`}
                 >
-                  {d?.isAccept === 'true' ? <button>Yes</button> : <button>No</button>  }
+                  {d?.isAccept === true ? <button>Yes</button> : <button>No</button>  }
                 </span>
               </td>
               <td className="p-3">
-                <span className="px-2 py-1 rounded bg-yellow-400 text-white text-xs">
-                  {d.isPayment === 'false' ? <p>Pending</p> : <p>Paid</p> } 
+                <span className="px-2 py-1 rounded  text-white text-xs">
+                  {d.isPayment === false ? <p>Pending</p> : <p>Paid</p> } 
                 </span>
               </td> 
               <td className="p-3">
                 <button
                   className={`px-4 py-1 text-white rounded text-sm ${
-                    d.accepted === "Yes"
+                    d.isAccept === true
                       ? "bg-blue-500 hover:bg-blue-600"
                       : "bg-gray-300 cursor-not-allowed"
                   }`}
-                  disabled={d.accepted !== "Yes"}
+                  disabled={d.accepted !== true}
                 >
                   Pay Now
                 </button>
