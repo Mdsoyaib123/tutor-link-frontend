@@ -12,7 +12,7 @@ export default function SidebarWrapper() {
   const role = useAppSelector((state) => state.auth.user?.role);
 
   // Set route prefix based on role
-  const routePrefix = role == "tutor" ? "/tutor" : "/studentdashboard";
+  const routePrefix = role == "Tutor" ? "/tutor" : "/studentdashboard";
 
   return (
     <>
