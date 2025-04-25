@@ -6,7 +6,8 @@ type Role = keyof typeof roleBasedPrivateRoutes;
 const authRoutes = ["/login", "/register"];
 
 const roleBasedPrivateRoutes = {
-  Student: [/^\/studentdashboard/, /^\/tutors/], //studentdeshboard
+
+  Student: [/^\/studentdashboard/,/^\/tutors/,/^\/tutors(\/.*)?$/ ], //studentdeshboard
   Tutor: [/^\/tutor/, /^\/tutors(\/.*)?$/], //tutors
 };
 

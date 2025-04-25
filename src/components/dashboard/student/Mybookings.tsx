@@ -3,6 +3,7 @@
 import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+<<<<<<< HEAD
 type Email = {
   email: string;
 };
@@ -11,6 +12,13 @@ type B = {
   tutorId: Email;
 };
 const BookingTable = () => {
+=======
+
+
+
+
+ const  BookingTable = ()=>{
+>>>>>>> c00e275b1b355e6631cd47ba3e39336037b4fc09
   const currentUser = useSelector(selectCurrentUser);
   console.log(currentUser);
   const [bookings, setBookings] = useState([]);
