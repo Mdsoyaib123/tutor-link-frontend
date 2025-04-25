@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Button } from "@/components/ui/button";
 import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
@@ -6,10 +7,12 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 
+
+
 export default function MyRequestsTable() {
   const currentUser = useSelector(selectCurrentUser);
 
-  const [requests, setRequests] = useState(null);
+  const [requests, setRequests] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchRequest = async () => {
@@ -33,7 +36,7 @@ export default function MyRequestsTable() {
     fetchRequest();
   }, [currentUser?.email]);
 
-  const makePayment = async (data) => {
+  const makePayment = async (data: { [key: string]: any }) => {
     console.log("inside paymet", data);
     const stripe = await loadStripe(
       "pk_test_51NFeKsHXxHHqqBSEXEZ6oVqeAquqIpszGA5xvnGO3XSkrX53ffO3A2pRkRRuIhjoVvUKiFxBoC476BMmG8pr8GDK00kNXNphd6"
@@ -59,14 +62,14 @@ export default function MyRequestsTable() {
     const session = await response.json();
     console.log("session", session);
 
-    const result = stripe?.redirectToCheckout({
+    const result = await stripe?.redirectToCheckout({
       sessionId: session?.id,
     });
     // setLoading(false);
     console.log("payment result", result);
 
     if (result?.error) {
-      console.log(result?.error);
+      console.log(result.error);
     }
   };
 

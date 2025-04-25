@@ -6,10 +6,9 @@ import toast from "react-hot-toast";
 import { GiTeacher } from "react-icons/gi";
 import { PiStudentBold } from "react-icons/pi";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
 import Link from "next/link";
 
-import {  MoveLeft } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 
 import {
   Form,
@@ -42,7 +41,7 @@ const RegisterForm = () => {
   // const formatEndDate = endDate ? format(endDate, "dd-MM-yyyy") : "";
 
   const [signUp, setSignUp] = useState(false);
-  const [uploading, setUploading] = useState(false);
+  const [uploading] = useState(false);
   const form = useForm();
 
   const {
@@ -56,22 +55,21 @@ const RegisterForm = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    if (data.role === 'Tutor') {
+    if (data.role === "Tutor") {
       const formattedData = {
         ...data,
         availability: {
           from: startDate, // Ensure from is a Date object
           to: endDate ? endDate : undefined, // Convert to if present
         },
- 
       };
       try {
-        console.log(formattedData)
+        console.log(formattedData);
         const res = await registerUser(formattedData);
-        console.log(res)
+        console.log(res);
         if (res?.success) {
           toast.success(res?.message);
-          router.push('/login');
+          router.push("/login");
         } else {
           toast.error(res?.message);
         }
@@ -82,10 +80,10 @@ const RegisterForm = () => {
     } else {
       try {
         const res = await registerUser(data);
-        console.log(res)
+        console.log(res);
         if (res?.success) {
           toast.success(res?.message);
-          router.push('/login');
+          router.push("/login");
         } else {
           toast.error(res?.message);
         }

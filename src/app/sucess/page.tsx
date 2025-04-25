@@ -15,7 +15,9 @@ const Success = () => {
     if (sessionId && !orderPlacedRef.current) {
       orderPlacedRef.current = true;
 
-      fetch(`http://localhost:5000/checkout-session/${sessionId}`)
+      fetch(
+        `https://tutor-link-backend-swart.vercel.app/checkout-session/${sessionId}`
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log("Checkout session data:", data);

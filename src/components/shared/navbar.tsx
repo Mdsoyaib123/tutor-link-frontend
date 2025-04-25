@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar } from "../ui/avatar";
 import { useAppDispatch, useAppSelector } from "@/Redux/hook";
 import { persistor } from "@/Redux/store";
 import { logout } from "@/Redux/Features/Auth/authSlice";

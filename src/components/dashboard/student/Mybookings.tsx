@@ -1,28 +1,42 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+<<<<<<< HEAD
+type Email = {
+  email: string;
+};
+type B = {
+  userEmail: string;
+  tutorId: Email;
+};
+const BookingTable = () => {
+=======
 
 
 
 
  const  BookingTable = ()=>{
+>>>>>>> c00e275b1b355e6631cd47ba3e39336037b4fc09
   const currentUser = useSelector(selectCurrentUser);
-  console.log(currentUser)
+  console.log(currentUser);
   const [bookings, setBookings] = useState([]);
-  console.log('from state ',bookings)
-  
+  console.log("from state ", bookings);
+
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/permits`, {
           next: { revalidate: 30 },
         });
-        
+
         const data = await res.json();
 
         if (currentUser?.email) {
-          const filtered = data?.data?.filter((b: any) => b.userEmail === currentUser.email);
+          const filtered = data?.data?.filter(
+            (b: B) => b.userEmail === currentUser.email
+          );
           setBookings(filtered);
         } else {
           setBookings([]);
@@ -31,11 +45,9 @@ import { useSelector } from "react-redux";
         console.error("Failed to fetch bookings:", error);
       }
     };
-    
+
     fetchBookings();
   }, [currentUser?.email]);
-
-
 
   return (
     <div className="">
@@ -47,21 +59,21 @@ import { useSelector } from "react-redux";
               <th className="px-4 py-2">#</th>
               <th className="px-4 py-2">User Email</th>
               <th className="px-4 py-2">Tutor Id</th>
-      
+
               <th className="px-4 py-2">Total Amount</th>
-   
+
               <th className="px-4 py-2">Payment Status</th>
             </tr>
           </thead>
           <tbody>
-            {bookings.map((b, i) => (
+            {bookings.map((b: any, i) => (
               <tr key={i} className="border-b ">
                 <td className="px-4 py-2">{i + 1}</td>
                 <td className="px-4 py-2">{b?.userEmail}</td>
-                <td className="px-4 py-2">{b?.tutorId?._id }</td>
- 
+                <td className="px-4 py-2">{b?.tutorId?._id}</td>
+
                 <td className="px-4 py-2">{b.price}</td>
-           
+
                 <td className="px-4 py-2">
                   <span className=" text-white text-xs font-semibold px-3 py-1 rounded">
                     {b?.isPayment === false ? <p>Pending</p> : <p>Paid</p>}
@@ -74,6 +86,6 @@ import { useSelector } from "react-redux";
       </div>
     </div>
   );
-}
+};
 
 export default BookingTable;
