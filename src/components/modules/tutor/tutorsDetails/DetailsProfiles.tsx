@@ -305,7 +305,7 @@ const DetailsProfiles = ({ tutor }: { tutor: IUser | null }) => {
       {/* review section */}
       <div className="mt-16 shadow-[0px_0px_10px_theme(colors.blue.400)] rounded-lg bg-blue-800/20 p-8">
         <div className=" flex justify-between items-center">
-          <h2 className="text-lg sm:text-xl md:text-2xl xl:text-3xl font-semibold leading-snug text-gray-100 ">
+          <h2 className="text-lg sm:text-xl md:text-2xl xl:text-3xl dark:text-gray-100 font-semibold leading-snug text-gray-700 ">
             Student Reviews
           </h2>
           <Button
@@ -332,7 +332,7 @@ const DetailsProfiles = ({ tutor }: { tutor: IUser | null }) => {
               </div>
             ))
           ) : (
-            <p className="text-gray-500 dark:text-gray-200 text-center text-xl">
+            <p className="text-gray-600 dark:text-gray-100 text-center text-xl">
               No reviews yet...
             </p>
           )}
