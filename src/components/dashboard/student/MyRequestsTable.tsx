@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Button } from "@/components/ui/button";
 import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
@@ -5,40 +6,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
-const data = [
-  {
-    profile: "https://i.pravatar.cc/150?img=1",
-    name: "Sarah Williams",
-    address: "123 Birchwood Lane, Greenville",
-    subjects: "Chemistry",
-    availability: "3/19/2025 - 4/8/2025",
-    accepted: "No",
-    payment: "Pending",
-  },
-  {
-    profile: "https://i.pravatar.cc/150?img=2",
-    name: "Jule Johnson",
-    address: "456 Elm Street, Metropolis",
-    subjects: "English, Literature",
-    availability: "3/24/2025 - 3/29/2025",
-    accepted: "Yes",
-    payment: "Pending",
-  },
-  {
-    profile: "https://i.pravatar.cc/150?img=3",
-    name: "Tafiyatul Jannat",
-    address: "Nandanpur bazer, Gopalur Upazila, Tangail",
-    subjects: "Mathematics, Physics",
-    availability: "3/25/2025 - 3/28/2025",
-    accepted: "No",
-    payment: "Pending",
-  },
-];
 
 export default function MyRequestsTable() {
   const currentUser = useSelector(selectCurrentUser);
 
-  const [requests, setRequests] = useState(null);
+  const [requests, setRequests] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchRequest = async () => {
@@ -62,7 +34,7 @@ export default function MyRequestsTable() {
     fetchRequest();
   }, [currentUser?.email]);
 
-  const makePayment = async (data) => {
+  const makePayment = async (data: { [key: string]: any }) => {
     console.log("inside paymet", data);
     const stripe = await loadStripe(
       "pk_test_51NFeKsHXxHHqqBSEXEZ6oVqeAquqIpszGA5xvnGO3XSkrX53ffO3A2pRkRRuIhjoVvUKiFxBoC476BMmG8pr8GDK00kNXNphd6"
@@ -88,14 +60,14 @@ export default function MyRequestsTable() {
     const session = await response.json();
     console.log("session", session);
 
-    const result = stripe?.redirectToCheckout({
+    const result = await stripe?.redirectToCheckout({
       sessionId: session?.id,
     });
     // setLoading(false);
     console.log("payment result", result);
 
     if (result?.error) {
-      console.log(result?.error);
+      console.log(result.error);
     }
   };
 

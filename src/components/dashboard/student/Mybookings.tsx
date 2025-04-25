@@ -1,64 +1,34 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import { selectCurrentUser } from "@/Redux/Features/Auth/authSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
-
-const bookingData = [
-  {
-    email: "y@gmail.com",
-    tutorId: "67c870e5a93ebf2549f7727f",
-    requestId: "67ca372c4526686cf3cd79fd",
-    amount: 220,
-    txnId: "txn_1741504000896",
-    status: "Paid",
-  },
-  {
-    email: "y@gmail.com",
-    tutorId: "67c87851a93ebf2549f77287",
-    requestId: "67d04d61b29fa75c41789e3d",
-    amount: 250,
-    txnId: "txn_1741704745776",
-    status: "Paid",
-  },
-  {
-    email: "y@gmail.com",
-    tutorId: "67c87851a93ebf2549f77287",
-    requestId: "67d04d61b29fa75c41789e3d",
-    amount: 250,
-    txnId: "txn_1744920669097",
-    status: "Paid",
-  },
-  {
-    email: "y@gmail.com",
-    tutorId: "67c870e5a93ebf2549f7727f",
-    requestId: "67ca372c4526686cf3cd79fd",
-    amount: 220,
-    txnId: "txn_1745209453054",
-    status: "Paid",
-  },
-  // ... add other rows similarly
-];
-
-
-
- const  BookingTable = ()=>{
+type Email = {
+  email: string;
+};
+type B = {
+  userEmail: string;
+  tutorId: Email;
+};
+const BookingTable = () => {
   const currentUser = useSelector(selectCurrentUser);
-  console.log(currentUser)
+  console.log(currentUser);
   const [bookings, setBookings] = useState([]);
-  console.log('from state ',bookings)
-  
+  console.log("from state ", bookings);
+
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/permits`, {
           next: { revalidate: 30 },
         });
-        
+
         const data = await res.json();
 
         if (currentUser?.email) {
-          const filtered = data?.data?.filter((b: any) => b.userEmail === currentUser.email);
+          const filtered = data?.data?.filter(
+            (b: B) => b.userEmail === currentUser.email
+          );
           setBookings(filtered);
         } else {
           setBookings([]);
@@ -67,11 +37,9 @@ const bookingData = [
         console.error("Failed to fetch bookings:", error);
       }
     };
-    
+
     fetchBookings();
   }, [currentUser?.email]);
-
-
 
   return (
     <div className="">
@@ -83,21 +51,21 @@ const bookingData = [
               <th className="px-4 py-2">#</th>
               <th className="px-4 py-2">User Email</th>
               <th className="px-4 py-2">Tutor Id</th>
-      
+
               <th className="px-4 py-2">Total Amount</th>
-   
+
               <th className="px-4 py-2">Payment Status</th>
             </tr>
           </thead>
           <tbody>
-            {bookings.map((b, i) => (
+            {bookings.map((b: any, i) => (
               <tr key={i} className="border-b ">
                 <td className="px-4 py-2">{i + 1}</td>
                 <td className="px-4 py-2">{b?.userEmail}</td>
-                <td className="px-4 py-2">{b?.tutorId?._id }</td>
- 
+                <td className="px-4 py-2">{b?.tutorId?._id}</td>
+
                 <td className="px-4 py-2">{b.price}</td>
-           
+
                 <td className="px-4 py-2">
                   <span className=" text-white text-xs font-semibold px-3 py-1 rounded">
                     {b?.isPayment === false ? <p>Pending</p> : <p>Paid</p>}
@@ -110,6 +78,6 @@ const bookingData = [
       </div>
     </div>
   );
-}
+};
 
 export default BookingTable;

@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function ProfileCard() {
   const dispatch = useAppDispatch();
   const CurrentUser = useAppSelector((state) => state.auth.user);
-  const [profile, setProfile] = useState({
+  const [profile] = useState({
     ...CurrentUser,
     name: "sourav",
     address: CurrentUser?.address || "Gopalur Upazila,Tangail",
@@ -42,7 +42,6 @@ export default function ProfileCard() {
       await res.json();
       window.location.reload();
       dispatch(updateUser(formData));
-      
 
       setEditMode(false); // Exit edit mode
     } catch (error) {
