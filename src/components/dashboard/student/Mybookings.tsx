@@ -4,42 +4,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 
-const bookingData = [
-  {
-    email: "y@gmail.com",
-    tutorId: "67c870e5a93ebf2549f7727f",
-    requestId: "67ca372c4526686cf3cd79fd",
-    amount: 220,
-    txnId: "txn_1741504000896",
-    status: "Paid",
-  },
-  {
-    email: "y@gmail.com",
-    tutorId: "67c87851a93ebf2549f77287",
-    requestId: "67d04d61b29fa75c41789e3d",
-    amount: 250,
-    txnId: "txn_1741704745776",
-    status: "Paid",
-  },
-  {
-    email: "y@gmail.com",
-    tutorId: "67c87851a93ebf2549f77287",
-    requestId: "67d04d61b29fa75c41789e3d",
-    amount: 250,
-    txnId: "txn_1744920669097",
-    status: "Paid",
-  },
-  {
-    email: "y@gmail.com",
-    tutorId: "67c870e5a93ebf2549f7727f",
-    requestId: "67ca372c4526686cf3cd79fd",
-    amount: 220,
-    txnId: "txn_1745209453054",
-    status: "Paid",
-  },
-  // ... add other rows similarly
-];
-
 
 
  const  BookingTable = ()=>{
